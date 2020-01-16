@@ -35,11 +35,13 @@ Seuraavaksi jatkan tutustumista luolastogeneraattoreista saatavilla olevaan tiet
 ## Tuntikirjanpito
 
 ke 15.1.2020
-	* 2,5h alkuvalmisteluja, ml. kurssijärjestelyihin tutustuminen
-	* 0,5h aiheen valinta ja silmäys aiheesta löytyvään tietoon
+
+* 2,5h alkuvalmisteluja, ml. kurssijärjestelyihin tutustuminen
+* 0,5h aiheen valinta ja silmäys aiheesta löytyvään tietoon
 	
 to 16.1.2020
-	* 0,5h alkuvalmisteluja
-	* 0,5h viikkoraportin kirjoitus
 
-** YHT. 4h **
+* 0,5h alkuvalmisteluja
+* 0,5h viikkoraportin kirjoitus
+
+**YHT. 4h**
