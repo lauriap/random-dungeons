@@ -21,7 +21,7 @@ En ollut aikaisemmin käyttänyt gradlea, joten siihen piti tutustua lisää. En
 
 ## Mikä jäi epäselväksi tai on tuottanut vaikeuksia? KYSYMYS OHJAAJALLE
 
-Keskeinen huolenaiheeni on projektin vaativuus. Onko projektini riittävän monimutkainen tietorakenteiltaan? Se on toteutettavissa pitkälti kaksiulokkeisten taulukkojen avulla, eikä siihen todennäköisesti mitään kauhean monimutkaista muuta edes tarvita (pl. ehkä keko). Toki itse ohjelmaa varten on luotava jonkinlainen Luola-luokka ja sille joitakin metodeja. Kuten määrittelydokumentissa kuvasin, aihetta on mahdollista laajentaa määrittämällä luolastoon alku- ja loppupisteet sekä etsimällä lyhin mahdollinen reitti näiden välillä. Haluan kuitenkin aloittaa yksinkertaisemmasta toteutuksesta, koska en tällä kokemuksella pysty luottamaan omaan koodaustaitooni kurssin aikarajoituksin. Miltä aihe vaikuttaa?
+Keskeinen huolenaiheeni on projektin vaativuus. Onko projektini riittävän monimutkainen tietorakenteiltaan? Se on toteutettavissa pitkälti kaksiulotteisten taulukkojen avulla, eikä siihen todennäköisesti mitään kauhean monimutkaista muuta edes tarvita (pl. ehkä keko). Toki itse ohjelmaa varten on luotava jonkinlainen Luola-luokka ja sille joitakin metodeja. Kuten määrittelydokumentissa kuvasin, aihetta on mahdollista laajentaa määrittämällä luolastoon alku- ja loppupisteet sekä etsimällä lyhin mahdollinen reitti näiden välillä. Haluan kuitenkin aloittaa yksinkertaisemmasta toteutuksesta, koska en tällä kokemuksella pysty luottamaan omaan koodaustaitooni kurssin aikarajoituksin. Miltä aihe vaikuttaa?
 
 
 ## Mitä teen seuraavaksi?
