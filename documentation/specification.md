@@ -53,11 +53,11 @@ As the dungeon is generated using ASCII art, the main functionality can be creat
 
 I found cellular automata to be an interesting yet reasonably simple way of generating random dungeons. As I'm not very experienced with coding, I decided to pursue a project that I find manageable but which can also be expanded upon in case the project can be completed faster than previously expected. One possible expansion of the project is to include a start and end point and then look for the shortest path through the dungeon.
 
-Two-dimensional character arrays work well for the purpose of this program because no element of the dungeon array will contain more than one character. The random number generator can be made using the computer's internal clock which, while not random, will create an effect of randomness from the user's point of view.
+Two-dimensional character arrays work well for the purpose of this program because no element of the dungeon array will contain more than one character. In the first stage, however, a two-dimensional integer array is used to facilitate the determination of wall tiles using probability. The random number generator can be made using the computer's internal clock which, while not random, will create an effect of randomness from the user's point of view.
 
 ## Input and Output
 
-Using the GUI, the user can set the parameters for the dungeon generator. The parameters include dungeon size (X/Y integer values between 10-1000), random seed number (optional), number of "wall points" and number of iterations (1-10). The output is an ASCII image of the dungeon in another window.
+Using the GUI, the user can set the parameters for the dungeon generator. The parameters include dungeon size (X/Y integer values between 10-1000), random seed number (optional), probability of a tile being a wall (which is then compared against a random number) and number of iterations (1-10). The output is an ASCII image of the dungeon in another window.
 
 ## Time and Space Complexity
 
