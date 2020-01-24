@@ -29,7 +29,9 @@ Olen ottanut Gradlen käyttöön projektissa ja projektikansiooni generoituu tes
 
 Alla vielä kuva testiraportista.
 
-![alt text](https://github.com/lauriap/random-dungeons/tree/master/documentation/vko2_unit_tests.png "Vko2 yksikkötestit")
+![Vko2 unit tests][kuva]
+
+[kuva]: https://github.com/lauriap/random-dungeons/tree/master/documentation/vko2_unit_tests.png "Vko2 unit tests"
 
 
 ## Mitä teen seuraavaksi? KYSYMYS OHJAAJALLE
