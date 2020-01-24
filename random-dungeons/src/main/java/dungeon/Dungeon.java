@@ -8,30 +8,69 @@ import java.util.Random;
  */
 public class Dungeon {
     
-    Random rand = new Random();
+    Random rand;
     int[][] dungeon;
     int dungeonWidth;
     int dungeonHeight;
     int wallProbability;
+    int testSeed;
     
     /**
      * Constructor for a new Dungeon.
      * @param n number of rows
      * @param m number of columns
      * @param p probability of a tile being a wall in the initialization phase
+     * @param seed used for testing. 0 = random dungeon (normal use), > 0 = reconstructable dungeon (testing). Standard test seed = 1337.
      */
-    public Dungeon(int n, int m, int p) {
+    public Dungeon(int n, int m, int p, int seed) {
         this.dungeonHeight = n;
         this.dungeonWidth = m;
         this.wallProbability = p;
-        this.initializeDungeon();
+        this.dungeon = new int[this.dungeonHeight][this.dungeonWidth];
+        
+        if(seed != 0) { //seed is 0 for normal use, above 0 for testing.
+            this.rand = new Random(seed);
+        }
+        else {
+            this.rand = new Random();
+        }
+        
+    }
+    
+    
+    public int[][] getDungeonArray() {
+        return this.dungeon;
+    }
+    
+    /**
+     * Getter for dungeonWidth.
+     * @return int value for dungeon width (10-1000).
+     */
+    public int getDungeonWidth() {
+        return this.dungeonWidth;
+    }
+    
+    /**
+     * Getter for dungeonHeight.
+     * @return int value for dungeon height (10-1000).
+     */
+    public int getDungeonHeight() {
+        return this.dungeonHeight;
+    }
+    
+    /**
+     * Getter for wallProbability.
+     * @return int value for wall probability (0-100).
+     */
+    public int getWallProbability() {
+        return this.wallProbability;
     }
     
     /**
      * Places wall blocks at random locations to a dungeon matrix (map) as the first step towards creating a random dungeon.
      */
     public void initializeDungeon() {
-        this.dungeon = new int[this.dungeonHeight][this.dungeonWidth];
+        
         int temp = 0; //temporary variable
         
         for(int column = 0, row = 0; row < this.dungeonHeight; row++) {
@@ -63,7 +102,7 @@ public class Dungeon {
     }
     
     /**
-     * Determines whether a tile is a wall or explorable space based on probability. 
+     * Determines whether a tile is set to be a wall or explorable space based on probability. 
      * If the wall probability (user input from Dungeon constructor) is higher 
      * than a random number between 0-100, returns 1 ( = wall).
      * Otherwise returns 0.
@@ -77,7 +116,7 @@ public class Dungeon {
     }
     
     
-    public void MakeDungeons() {
+    public void MakeDungeon() {
         for(int column=0, row=0; row <= this.dungeonHeight-1; row++) {
             for(column = 0; column <= this.dungeonWidth-1; column++) {
                 this.dungeon[column][row] = PlaceWallLogic(column,row);
@@ -92,8 +131,8 @@ public class Dungeon {
      * If a wall tile has more than 4 adjacent wall tiles, return 1 ( = wall).
      * If a space tile has more than 5 adjacent wall tiles, return 1 ( = wall).
      * Else, return 0 ( = space).
-     * @param x
-     * @param y
+     * @param x x coordinate
+     * @param y y coordinate
      * @return 1 = wall tile, 0 = explorable space tile
      */
     public int PlaceWallLogic(int x, int y) {
@@ -116,7 +155,7 @@ public class Dungeon {
     }
     
     /**
-     * Returns the number of wall tiles adjacent to the original tile.
+     * Returns the number of wall tiles adjacent to the original tile. If a wall tile is out of dungeon bounds, it is counted as a wall ( = 1).
      * @param x starting point x parameter
      * @param y starting point y parameter
      * @param scopeX
@@ -206,9 +245,21 @@ public class Dungeon {
     }
     
     public static void main(String[] args) {
-        Dungeon luola = new Dungeon(50, 50,45);
-        luola.MakeDungeons();
+        Dungeon luola = new Dungeon(50, 50,45, 1337);
+        luola.initializeDungeon();
+        System.out.println("After initialization:");
         luola.printDungeon();
+        luola.MakeDungeon();
+        System.out.println("After creation:");
+        luola.printDungeon();
+        
+        System.out.println("***** TOINEN LUOLA*****");
+        Dungeon toinenLuola = new Dungeon(5, 5, 15, 1337);
+        toinenLuola.initializeDungeon();
+        toinenLuola.printDungeon();
+        toinenLuola.MakeDungeon();
+        System.out.println("MakeDungeon:");
+        toinenLuola.printDungeon();
     }
 
     
