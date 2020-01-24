@@ -20,7 +20,8 @@ public class Dungeon {
      * @param n number of rows
      * @param m number of columns
      * @param p probability of a tile being a wall in the initialization phase
-     * @param seed used for testing. 0 = random dungeon (normal use), > 0 = reconstructable dungeon (testing). Standard test seed = 1337.
+     * @param seed used for testing. 0 = random dungeon (normal use), 
+     * > 0 = reconstructable dungeon (testing use). Standard test seed = 1337.
      */
     public Dungeon(int n, int m, int p, int seed) {
         this.dungeonHeight = n;
@@ -94,7 +95,7 @@ public class Dungeon {
                         this.dungeon[column][row] = 0; // ensures that the middle of the map is explorable
                     }
                     else {
-                        this.dungeon[column][row] = WallOrSpace();
+                        this.dungeon[column][row] = wallOrSpace();
                     }
                 }
             }
@@ -108,7 +109,7 @@ public class Dungeon {
      * Otherwise returns 0.
      * @return 1 = wall, 0 = explorable space 
      */
-    public int WallOrSpace() {
+    public int wallOrSpace() {
         if(this.wallProbability >= this.rand.nextInt(100)) {
             return 1;
         }
@@ -116,10 +117,10 @@ public class Dungeon {
     }
     
     
-    public void MakeDungeon() {
+    public void makeDungeon() {
         for(int column=0, row=0; row <= this.dungeonHeight-1; row++) {
             for(column = 0; column <= this.dungeonWidth-1; column++) {
-                this.dungeon[column][row] = PlaceWallLogic(column,row);
+                this.dungeon[column][row] = placeWall(column,row);
             }
         }
     }
@@ -135,19 +136,19 @@ public class Dungeon {
      * @param y y coordinate
      * @return 1 = wall tile, 0 = explorable space tile
      */
-    public int PlaceWallLogic(int x, int y) {
-        int numWalls = getAdjacentWalls(x, y, 1, 1);
+    public int placeWall(int x, int y) {
+        int numberOfWalls = getAdjacentWalls(x, y);
         
         if(this.dungeon[x][y] == 1) {
-            if(numWalls >= 4) {
+            if(numberOfWalls >= 4) {
                 return 1;
             }
-            if(numWalls < 2) {
+            if(numberOfWalls < 2) {
                 return 0;
             }
         }
         else {
-            if(numWalls >= 5) {
+            if(numberOfWalls >= 5) {
                 return 1;
             }
         }
@@ -158,25 +159,20 @@ public class Dungeon {
      * Returns the number of wall tiles adjacent to the original tile. If a wall tile is out of dungeon bounds, it is counted as a wall ( = 1).
      * @param x starting point x parameter
      * @param y starting point y parameter
-     * @param scopeX
-     * @param scopeY
      * @return 
      */
-    public int getAdjacentWalls(int x, int y, int scopeX, int scopeY) {
-        int startX = x - scopeX;
-        int startY = y - scopeY;
-        int endX = x + scopeX;
-        int endY = y + scopeY;
-        
-        int iX = startX;
-        int iY = startY;
+    public int getAdjacentWalls(int x, int y) {
+        int startX = x - 1;
+        int startY = y - 1;
+        int endX = x + 1;
+        int endY = y + 1;
         
         int wallCounter = 0;
         
-        for(iY = startY; iY <= endY; iY++) {
-            for(iX = startX; iX <= endX; iX++) {
+        for(int iY = startY; iY <= endY; iY++) {
+            for(int iX = startX; iX <= endX; iX++) {
                 if(!(iX==x && iY==y)) {
-                    if(IsWall(iX,iY)) {
+                    if(isWall(iX,iY)) {
                         wallCounter += 1;
                     }
                 }
@@ -191,9 +187,9 @@ public class Dungeon {
      * @param y
      * @return 
      */
-    public boolean IsWall(int x,int y) {
+    public boolean isWall(int x,int y) {
         // Checks if the wall is out of bounds
-        if( IsOutOfBounds(x,y)) {
+        if( isOutOfBounds(x,y)) {
             return true;
         }
 
@@ -214,7 +210,7 @@ public class Dungeon {
      * @param y
      * @return 
      */
-    public boolean IsOutOfBounds(int x, int y) {
+    public boolean isOutOfBounds(int x, int y) {
         if( x < 0 || y < 0) {
             return true;
             }
@@ -249,23 +245,22 @@ public class Dungeon {
         luola.initializeDungeon();
         System.out.println("After initialization:");
         luola.printDungeon();
-        luola.MakeDungeon();
+        
+        System.out.println();
+        
+        luola.makeDungeon();
         System.out.println("After creation:");
         luola.printDungeon();
+        
+        System.out.println();
         
         System.out.println("***** TOINEN LUOLA*****");
         Dungeon toinenLuola = new Dungeon(5, 5, 15, 1337);
         toinenLuola.initializeDungeon();
         toinenLuola.printDungeon();
-        toinenLuola.MakeDungeon();
+        toinenLuola.makeDungeon();
+        System.out.println();
         System.out.println("MakeDungeon:");
         toinenLuola.printDungeon();
     }
-
-    
-    // jatka tästä: http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels
-    // https://tiralabra.github.io/2020_p3/fi/aikataulu/
-    // https://tiralabra.github.io/2020_p3/
-    // https://github.com/lauriap/random-dungeons
-    
 }

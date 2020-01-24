@@ -19,7 +19,7 @@ import org.junit.Test;
  *              #...#
  *              #####
  * 
- *       *** AFTER MakeDungeon() ***
+ *       *** AFTER makeDungeon() ***
  *              #####
  *              #####
  *              #..##
@@ -46,7 +46,7 @@ public class TestDungeon {
      *              #####
      */
     @Test
-    public void TestInitializeDungeon() {
+    public void testInitializeDungeon() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
         testDungeon.initializeDungeon();
         int dungeonArray[][] = testDungeon.getDungeonArray();
@@ -79,7 +79,7 @@ public class TestDungeon {
      * Test for a random wall/explorable space generator.
      */
     @Test
-    public void TestWallOrSpace() {
+    public void testWallOrSpace() {
         int testValue = 0;
         int testProbability = 45;
         Random rand = new Random(1337);
@@ -91,26 +91,26 @@ public class TestDungeon {
             else {
                 testValue = 0;
             }
-            assertEquals(testValue, testDungeon.WallOrSpace());
+            assertEquals(testValue, testDungeon.wallOrSpace());
         }
     }
     
     /**
-     * Tests that IsOutOfBounds() calculates the boundaries of the dungeon correctly.
+     * Tests that isOutOfBounds() calculates the boundaries of the dungeon correctly.
      */
     @Test
-    public void TestIsOutOfBounds() {
+    public void testIsOutOfBounds() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
         
-        assertEquals(true, testDungeon.IsOutOfBounds(-1, 0));
-        assertEquals(true, testDungeon.IsOutOfBounds(0, -1));
-        assertEquals(true, testDungeon.IsOutOfBounds(-1, -1));
-        assertEquals(true, testDungeon.IsOutOfBounds(5, 0));
-        assertEquals(true, testDungeon.IsOutOfBounds(0, 5));
-        assertEquals(true, testDungeon.IsOutOfBounds(5, 5));
+        assertEquals(true, testDungeon.isOutOfBounds(-1, 0));
+        assertEquals(true, testDungeon.isOutOfBounds(0, -1));
+        assertEquals(true, testDungeon.isOutOfBounds(-1, -1));
+        assertEquals(true, testDungeon.isOutOfBounds(5, 0));
+        assertEquals(true, testDungeon.isOutOfBounds(0, 5));
+        assertEquals(true, testDungeon.isOutOfBounds(5, 5));
         for(int i = 0; i < 5; i++) {
             for(int j = 0; j < 5; j++) {
-                assertEquals(false, testDungeon.IsOutOfBounds(i, j));
+                assertEquals(false, testDungeon.isOutOfBounds(i, j));
             }
         }
     }
@@ -118,7 +118,7 @@ public class TestDungeon {
     /**
      * Tests whether the values of the two-dimensional array created using 
      * MakeDungeon() matches the correct hand-calculated values.
-     *       *** AFTER MakeDungeon() ***
+     *       *** AFTER makeDungeon() ***
      *              #####
      *              #####
      *              #..##
@@ -126,14 +126,14 @@ public class TestDungeon {
      *              #####
      */
     @Test
-    public void TestMakeDungeon() {
+    public void testMakeDungeon() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
         testDungeon.initializeDungeon();
-        testDungeon.MakeDungeon();
+        testDungeon.makeDungeon();
         int[][] dungeonArray = testDungeon.getDungeonArray();
         
         int[][] testArray = new int[5][5];
-        //form int[5][5] test array with hand-calculated values of MakeDungeon() using 1337 as seed.
+        //form int[5][5] test array with hand-calculated values of makeDungeon() using 1337 as seed.
         for(int i = 0; i < 5; i++) {
             testArray[0][i] = 1;
             testArray[1][i] = 1;
@@ -152,18 +152,18 @@ public class TestDungeon {
     }
     
     /**
-     * Tests that the IsWall() function returns true if the given tile (x,y) is a wall and false otherwise.
+     * Tests that the isWall() function returns true if the given tile (x,y) is a wall and false otherwise.
      */
     @Test
-    public void TestIsWall() {
+    public void testIsWall() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
         testDungeon.initializeDungeon();
         
-        assertEquals(true, testDungeon.IsWall(0, 0));
-        assertEquals(false, testDungeon.IsWall(1, 2));
-        assertEquals(true, testDungeon.IsWall(2, 3));
-        assertEquals(false, testDungeon.IsWall(3, 1));
-        assertEquals(true, testDungeon.IsWall(4, 4));
+        assertEquals(true, testDungeon.isWall(0, 0));
+        assertEquals(false, testDungeon.isWall(1, 2));
+        assertEquals(true, testDungeon.isWall(2, 3));
+        assertEquals(false, testDungeon.isWall(3, 1));
+        assertEquals(true, testDungeon.isWall(4, 4));
     }
     
     /**
@@ -172,24 +172,24 @@ public class TestDungeon {
      * @param y y coordinate of the tile for which the number of adjacent walls is calculated.
      */
     @Test
-    public void TestGetAdjacentWalls() {
+    public void testGetAdjacentWalls() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337); //test Dungeon with seed 1337.
         testDungeon.initializeDungeon();
         
-        assertEquals(7, testDungeon.getAdjacentWalls(0, 0, 1, 1));
-        assertEquals(6, testDungeon.getAdjacentWalls(0, 1, 1, 1));
-        assertEquals(4, testDungeon.getAdjacentWalls(1, 2, 1, 1));
-        assertEquals(3, testDungeon.getAdjacentWalls(2, 1, 1, 1));
-        assertEquals(5, testDungeon.getAdjacentWalls(3, 1, 1, 1));
-        assertEquals(1, testDungeon.getAdjacentWalls(2, 2, 1, 1));
-        assertEquals(6, testDungeon.getAdjacentWalls(3, 3, 1, 1));
+        assertEquals(7, testDungeon.getAdjacentWalls(0, 0));
+        assertEquals(6, testDungeon.getAdjacentWalls(0, 1));
+        assertEquals(4, testDungeon.getAdjacentWalls(1, 2));
+        assertEquals(3, testDungeon.getAdjacentWalls(2, 1));
+        assertEquals(5, testDungeon.getAdjacentWalls(3, 1));
+        assertEquals(1, testDungeon.getAdjacentWalls(2, 2));
+        assertEquals(6, testDungeon.getAdjacentWalls(3, 3));
     }
     
     /**
      * Tests that the rules according to which walls and explorable spaces are placed into the dungeon are correct. 
      * PlaceWallLogic takes a tile (x,y) and returns 1 if a wall is to be placed there, 0 otherwise.
      * This test only tests the resulting tiles based on the starting tiles. 
-     * The iterative algorithm is tested with TestMakeDungeon().
+     * The iterative algorithm is tested with testMakeDungeon().
      * 
      *       *** AFTER initializeDungeon() ***
      *                #####
@@ -199,22 +199,22 @@ public class TestDungeon {
      *                #####
      */
     @Test
-    public void TestPlaceWallLogic() {
+    public void testPlaceWallLogic() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
         testDungeon.initializeDungeon();
-        assertEquals(1, testDungeon.PlaceWallLogic(1, 1));
-        assertEquals(0, testDungeon.PlaceWallLogic(2, 1));
-        assertEquals(0, testDungeon.PlaceWallLogic(2, 2));
-        assertEquals(0, testDungeon.PlaceWallLogic(2, 3));
-        assertEquals(1, testDungeon.PlaceWallLogic(3, 3));
-        assertEquals(1, testDungeon.PlaceWallLogic(4, 4));
+        assertEquals(1, testDungeon.placeWall(1, 1));
+        assertEquals(0, testDungeon.placeWall(2, 1));
+        assertEquals(0, testDungeon.placeWall(2, 2));
+        assertEquals(0, testDungeon.placeWall(2, 3));
+        assertEquals(1, testDungeon.placeWall(3, 3));
+        assertEquals(1, testDungeon.placeWall(4, 4));
     }
     
     /**
      * This test will be added later as the final version will not contain a command line print but a UI.
      */
     @Test
-    public void TestPrintDungeon() {
+    public void testPrintDungeon() {
         assertEquals(true, true);
     }
     
