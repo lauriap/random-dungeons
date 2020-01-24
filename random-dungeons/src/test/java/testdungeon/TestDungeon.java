@@ -116,7 +116,8 @@ public class TestDungeon {
     }
     
     /**
-     * Tests whether the values of the two-dimensional array created using MakeDungeon() matches the correct hand-calculated values.
+     * Tests whether the values of the two-dimensional array created using 
+     * MakeDungeon() matches the correct hand-calculated values.
      *       *** AFTER MakeDungeon() ***
      *              #####
      *              #####
@@ -187,7 +188,8 @@ public class TestDungeon {
     /**
      * Tests that the rules according to which walls and explorable spaces are placed into the dungeon are correct. 
      * PlaceWallLogic takes a tile (x,y) and returns 1 if a wall is to be placed there, 0 otherwise.
-     * This test only tests the resulting tiles based on the starting tiles. The iterative algorithm is tested with TestMakeDungeon().
+     * This test only tests the resulting tiles based on the starting tiles. 
+     * The iterative algorithm is tested with TestMakeDungeon().
      * 
      *       *** AFTER initializeDungeon() ***
      *                #####
