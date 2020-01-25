@@ -220,12 +220,14 @@ public class Dungeon {
         return false;
     }
  
-    
+    /**
+     * This method is used solely for testing. Prints the dungeon layout to the command line.
+     */
     public void printDungeon() {
         char w = '#';
         char p = '.';
+        String s = "";
         for(int column = 0, row = 0; row <= this.dungeonHeight-1; row++) {
-            String s = "";
             for(column = 0; column <= this.dungeonHeight-1; column++) {
                 if(this.dungeon[row][column] == 1) {
                     String otherString = s + '#';
@@ -236,8 +238,35 @@ public class Dungeon {
                     s = otherString;
                 }
             }
-        System.out.println(s);
+        String endOfRowString = s + "\n";
+        s = endOfRowString;
         }
+        System.out.println(s);
+    }
+    
+    /**
+     * Returns the finished random dungeon in String format.
+     * @return String dungeon with line breaks.
+     */
+    public String returnDungeonMap() {
+        char w = '#';
+        char p = '.';
+        String s = "";
+        for(int column = 0, row = 0; row <= this.dungeonHeight-1; row++) {
+            for(column = 0; column <= this.dungeonHeight-1; column++) {
+                if(this.dungeon[row][column] == 1) {
+                    String otherString = s + '#';
+                    s = otherString;
+                }
+                else {
+                    String otherString = s + '.';
+                    s = otherString;
+                }
+            }
+        String endOfRowString = s + "<br>";
+        s = endOfRowString;
+        }
+        return s;
     }
     
     public static void main(String[] args) {

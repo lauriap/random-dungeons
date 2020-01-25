@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
 import dungeon.Dungeon;
+import javax.swing.text.Document;
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
 
 /**
  * This is the GUI class for creating random dungeons using the Dungeon class.
@@ -21,7 +24,7 @@ public class DungeonGUI extends JFrame implements ActionListener{
      */
     public final void initGUI() {
         
-        setTitle("Dungeon Generator");
+        
         
         // x coordinate of first label
         int firstX = 75;
@@ -107,27 +110,85 @@ public class DungeonGUI extends JFrame implements ActionListener{
         getContentPane().add(generateButton);
         getContentPane().add(quitButton);
 
+        setTitle("Dungeon Generator");
         setSize(300, 500);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         
         
         
-        // functionality for generate button
+        /* functionality for generate button
+         * 
+         * gets user input from the GUI
+         * creates a new frame and editor pane for the resulting dungeon
+         * creates a CSS style sheet for the text to control line-height and monospace font
+         * adds a close button for the new frame
+         * creates a dungeon and prints it to the window
+         */
         generateButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent event) {
                 
+                // get user input from GUI for the dungeon generator
                 int type = getDungeonType(dungeonList);
                 int size = getDungeonSize(sizeList);
                 int density = getWallDensity(densityList);
                 int seed = getSeed(seedSpinner);
                 
+                // create new frame (window) for the dungeon
+                JFrame printFrame = new JFrame();
+                printFrame.setTitle("Random dungeon");
+                printFrame.setSize(1500, 1000);
+                
+                // create a new editor frame for the print output
+                JEditorPane dungeonPane = new JEditorPane();
+                dungeonPane.setContentType("text/plain");
+                dungeonPane.setEditable(false);
+                dungeonPane.setBounds(0, 0, 1500, 850);
+                
+                // create CSS style sheet for dungeonPane in order to change line spacing and font
+                HTMLEditorKit kit = new HTMLEditorKit();
+                dungeonPane.setEditorKit(kit);
+                JScrollPane scrollPane = new JScrollPane(dungeonPane);
+                
+                StyleSheet styleSheet = kit.getStyleSheet();
+                styleSheet.addRule("body { font: 8px courier, sans-serif; line-height: 180%;}");
+                //styleSheet.addRule("body { line-height:80%; }");
+                
+                Document doc = kit.createDefaultDocument();
+                dungeonPane.setDocument(doc);
+                
+                
+                
+                // add editor pane to print frame
+                printFrame.getContentPane().add(dungeonPane);
+                
+                // add a close button to the window
+                JButton closeButton = new JButton("Close");
+                closeButton.setBounds(750, 900, buttonWidth, buttonHeight);
+                printFrame.getContentPane().add(closeButton);
+                
+                // close button functionality
+                closeButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent event) {
+                        printFrame.setVisible(false);
+                    }
+                });
+                
+                // generate dungeon based on selected dungeon type
                 if(type == 0) {
                     Dungeon luola = new Dungeon(size, size, density, seed);
                     luola.initializeDungeon();
                     luola.makeDungeon();
                     luola.printDungeon();
+                    dungeonPane.setText(luola.returnDungeonMap());
                 }
+                
+                printFrame.getContentPane().setLayout(null);
+                printFrame.setLocationRelativeTo(null);
+                printFrame.setVisible(true);
+                
             }
         });
         
@@ -136,12 +197,14 @@ public class DungeonGUI extends JFrame implements ActionListener{
         
         // functionality for exit button
         quitButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent event) {
                 System.exit(0);
             }
         });
     }
     
+    @Override
     public void actionPerformed(ActionEvent e){
         System.out.println("nothing!");
     }
@@ -209,7 +272,7 @@ public class DungeonGUI extends JFrame implements ActionListener{
     public int getSeed(JSpinner spinner) {
         return (Integer) spinner.getValue();
     }
-    
+  
     public static void main(String[] args) {
             DungeonGUI gui = new DungeonGUI();
             gui.setVisible(true);
