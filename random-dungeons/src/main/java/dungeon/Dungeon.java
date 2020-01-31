@@ -116,7 +116,9 @@ public class Dungeon {
         return 0;
     }
     
-    
+    /**
+     * Creates a random dungeon from an initialized dungeon by invoking placeWall on all tiles. 
+     */
     public void makeDungeon() {
         for(int column=0, row=0; row <= this.dungeonHeight-1; row++) {
             for(column = 0; column <= this.dungeonWidth-1; column++) {
@@ -245,13 +247,14 @@ public class Dungeon {
     }
     
     /**
-     * Returns the finished random dungeon in String format.
+     * Returns the finished random dungeon in String format (HTML).
      * @return String dungeon with line breaks.
      */
     public String returnDungeonMap() {
         char w = '#';
         char p = '.';
-        String s = "";
+        
+        String s = "<html><body>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
         for(int column = 0, row = 0; row <= this.dungeonHeight-1; row++) {
             for(column = 0; column <= this.dungeonHeight-1; column++) {
                 if(this.dungeon[row][column] == 1) {
@@ -266,9 +269,12 @@ public class Dungeon {
         String endOfRowString = s + "<br>";
         s = endOfRowString;
         }
+        String otherS = s + "</body></html>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
+        s = otherS;
         return s;
     }
     
+    // main used here for testing purposes.
     public static void main(String[] args) {
         Dungeon luola = new Dungeon(50, 50,45, 1337);
         luola.initializeDungeon();

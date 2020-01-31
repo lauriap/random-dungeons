@@ -142,7 +142,7 @@ public class DungeonGUI extends JFrame implements ActionListener{
                 
                 // create a new editor frame for the print output
                 JEditorPane dungeonPane = new JEditorPane();
-                dungeonPane.setContentType("text/plain");
+                dungeonPane.setContentType("text/html"); //HTML OR PLAIN?
                 dungeonPane.setEditable(false);
                 dungeonPane.setBounds(0, 0, 1500, 850);
                 
@@ -152,8 +152,8 @@ public class DungeonGUI extends JFrame implements ActionListener{
                 JScrollPane scrollPane = new JScrollPane(dungeonPane);
                 
                 StyleSheet styleSheet = kit.getStyleSheet();
-                styleSheet.addRule("body { font: 8px courier, sans-serif; line-height: 180%;}");
-                //styleSheet.addRule("body { line-height:80%; }");
+                styleSheet.addRule("body { font: 8px courier, sans-serif; line-height: 0.7;}"); // THIS NEEDS TO BE FIXED! LINE-HEIGHT NOT WORKING! 
+               //styleSheet.addRule("body { line-height:80%; }");
                 
                 Document doc = kit.createDefaultDocument();
                 dungeonPane.setDocument(doc);

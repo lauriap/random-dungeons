@@ -14,3 +14,12 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 /.nb-gradle/
 
+.gradle
+/build/
+
+# Random
+.classpath
+.project
+bin/
+.settings/
+
