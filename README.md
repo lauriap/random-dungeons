@@ -6,7 +6,9 @@ The generator also has a simple GUI. The generator will be made using Java. Plea
 ## Weekly Reports (in Finnish)
 
 [Weekly Report 1](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_1.md)
+
 [Weekly Report 2](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_2.md)
+
 [Weekly Report 3](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_3.md)
 
 
