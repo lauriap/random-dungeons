@@ -3,6 +3,12 @@
 This Random Dungeon Generator is made as part of a data structures and algorithms laboratory course. The generator creates random ASCII dungeons pictured from above using cellular automata.
 The generator also has a simple GUI. The generator will be made using Java. Please refer to documentation for more details.
 
+## Weekly Reports (in Finnish)
+
+[Weekly Report 1](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_1.md)
+[Weekly Report 2](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_2.md)
+[Weekly Report 3](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_3.md)
+
 
 
 		############################################################
@@ -42,6 +48,4 @@ The generator also has a simple GUI. The generator will be made using Java. Plea
 [About cellular automatons](http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels)
 
 
-## Weekly Reports (in Finnish)
 
-[Weekly Report 1](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_1.md)
