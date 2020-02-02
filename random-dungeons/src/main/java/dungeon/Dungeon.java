@@ -38,7 +38,10 @@ public class Dungeon {
         
     }
     
-    
+    /**
+     * Returns the dungeon map as a two-dimensional int array.
+     * @return two-dimensional dungeon array, 1 = wall, 0 = free space
+     */
     public int[][] getDungeonArray() {
         return this.dungeon;
     }
@@ -208,9 +211,9 @@ public class Dungeon {
     
     /**
      * Checks whether the parameter tile is out of bounds.
-     * @param x
-     * @param y
-     * @return 
+     * @param x x coordinate
+     * @param y y coordinate
+     * @return true = out of bounds, false = not out of bounds
      */
     public boolean isOutOfBounds(int x, int y) {
         if( x < 0 || y < 0) {
