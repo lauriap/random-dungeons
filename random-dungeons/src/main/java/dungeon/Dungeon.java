@@ -13,7 +13,6 @@ public class Dungeon {
     int dungeonWidth;
     int dungeonHeight;
     int wallProbability;
-    int testSeed;
     
     /**
      * Constructor for a new Dungeon.

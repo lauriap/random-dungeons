@@ -14,7 +14,9 @@ public class Ruins {
     int ruinsWidth;
     int ruinsHeight;
     int wallProbability;
-    int testSeed;
+    int wallLimit;
+    int wallCount = 0;
+    
     
     /**
      * Constructor for a new Ruins.
@@ -28,6 +30,7 @@ public class Ruins {
         this.ruinsHeight = n;
         this.ruinsWidth = m;
         this.wallProbability = p;
+        this.wallLimit = n*m/3;
         this.ruins = new int[this.ruinsHeight][this.ruinsWidth];
         
         if(seed != 0) { //seed is 0 for normal use, above 0 for testing.
@@ -37,6 +40,14 @@ public class Ruins {
             this.rand = new Random();
         }
     }
+    
+    
+    // KORVAA WALL PROBABILITY LUVULLA, JOLLA JAAT WALL COUNTIN. OTA WALLORSPACE() POIS JA MUUTA SE NIIN, ETTÄ JOKAISEEN. MUUTA SE KONSTRUKTORIN WALL LIMITTIIN MUUTTUJAKSI
+    // UMPINAISIIN RAKENTEISIIN PITÄÄ PUHKAISTA REIKÄ. KÄY REUNUKSET LÄPI JA JOS KAIKKI == 1 NIIN VALITSE RANDOMILLA KOHTA, JONKA PUHKAISET.
+    // SELVITÄ MIKSI VASEMPAAN ALAREUNAAN TULEE YHTEEN KOHTAAN VIEREKKÄIN SEINÄMÄÄ
+    
+    
+    
     
     /**
      * Returns the ruins map as a two-dimensional int array.
@@ -60,6 +71,24 @@ public class Ruins {
      */
     public int getRuinsHeight() {
         return this.ruinsHeight;
+    }
+    
+    /**
+     * Returns a random (x,y) coordinate which is not yet occupied by walls or house structures.
+     * @return 
+     */
+    public int[] getRandomStartPoint() {
+        int x = this.rand.nextInt(this.ruinsHeight);
+        int y = this.rand.nextInt(this.ruinsWidth);
+        
+        while(this.ruins[x][y] != 0) {
+                x = this.rand.nextInt(this.ruinsHeight);
+                y = this.rand.nextInt(this.ruinsWidth);
+        }
+        
+        int[] t = new int[] {x, y};
+        return t;
+        
     }
     
     /**
@@ -97,33 +126,32 @@ public class Ruins {
      * @param height house length
      */
     public void createHouse(int x, int y, int width, int height) {
-        // LAITA HUONEILLE MINIMIKOKO ETTEI TULE TYPERIÄ MUOTOJA! JATKA SEINIEN REI'ITTÄMISELLÄ
+        // ensure that the rooms are large enough
+        if(width < 3) {
+            width += 5;
+        }
+        if(height < 3) {
+            height += 5;
+        }
+        
         for(int i = x; i <= x+height; i++) {
             // create free space around the house
             this.placeSpace(i, y);
-            //this.ruins[i][y] = 2;
             this.placeSpace(i, y+width);
-            //this.ruins[i][y+width] = 2;
 
         for(int j = y; j <= y+width; j++) {
             this.placeSpace(x, j);
             this.placeSpace(x+height, j);
-            //this.ruins[x][j] = 2;
-            //this.ruins[x+height][j] = 2;
         }
             // create left and right walls
             this.placeWall(i, y+1);
-            //this.ruins[i][y+1] = 1;
             this.placeWall(i, y+width-1);
-            //this.ruins[i][y+width-1] = 1;
         }
         
         for(int z = y+1; z <= y+width-1; z++) {
             // create upper and lower walls
             this.placeWall(x+1, z);
-            //this.ruins[x+1][z] = 1;
             this.placeWall(x+height-1, z);
-            //this.ruins[x+height-1][z] = 1;
         }
         
         // place house space inside the house ruins
@@ -132,7 +160,25 @@ public class Ruins {
                 this.placeHouseSpace(k, l);
             }
         }
+        this.wallCount += (2 * height + 2 * width);
         
+    }
+
+    /**
+     * Runs createHouse method until wallCount exceeds ruinsHeight*ruinsWidth*(100/wallProbability). wallCount is increased by houseHeight*houseWidth with each house. 
+     */
+    public void createRuins() {
+        int h = 0;
+        int w = 0;
+        int hMax = this.ruinsHeight/3;
+        int wMax = this.ruinsWidth/3;
+        
+        while(this.wallCount < this.wallLimit) {
+            h = this.rand.nextInt(hMax);
+            w = this.rand.nextInt(wMax);
+            int[] t = getRandomStartPoint(); //get (x,y) coordinate for the house in ruins
+            this.createHouse(t[0], t[1], w, h);
+        }
         
     }
     
@@ -148,14 +194,14 @@ public class Ruins {
         if(this.isOutOfBounds(x, y)) {
             return;
         }
-        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2) {
+        else if(this.ruins[x][y] !=0) {
             return;
         }
         else if(x == 1 || x == (this.getRuinsHeight()-2) || y == 1 || y == (this.getRuinsWidth()-2)) {
             this.ruins[x][y] = 2;
         }
         else {
-            this.ruins[x][y] = 1;
+            this.ruins[x][y] = 1; //this.wallOrSpace();
         }
     }
     
@@ -171,7 +217,7 @@ public class Ruins {
         if(this.isOutOfBounds(x, y)) {
             return;
         }
-        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2) {
+        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2 || this.ruins[x][y] == 3) {
             return;
         }
         else {
@@ -191,7 +237,7 @@ public class Ruins {
         if(this.isOutOfBounds(x, y)) {
             return;
         }
-        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 3) {
+        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2) {
             return;
         }
         else {
@@ -211,7 +257,7 @@ public class Ruins {
         if(this.wallProbability >= this.rand.nextInt(100)) {
             return 1;
         }
-        return 0;
+        return 3;
     }
     
         /**
@@ -230,28 +276,6 @@ public class Ruins {
         return false;
     }
     
-    
-    
-    /**
-     * Checks if the tile (x,y) is adjacent to map borders.
-     * @param x x coordinate
-     * @param y y coordinate
-     * @return true = is adjacent to a border, false = is not
-     */
-    /*
-    public boolean isAdjacentToBorder(int x, int y) {
-        if(x == 1 || x == (this.getRuinsWidth() - 2)) {
-            return true;
-        }
-        else if(y == 1 || y == (this.getRuinsHeight() - 2)) {
-            return true;
-        }
-        
-        return false;
-    }
-    */
-    
-    
     /**
      * This method is used solely for testing. Prints the ruins layout to the command line.
      */
@@ -266,11 +290,11 @@ public class Ruins {
                     s = otherString;
                 }
                 else if(this.ruins[row][column] == 2) {
-                    String otherString = s + 'o';
+                    String otherString = s + '.'; // USE 'o' IN TESTING!
                     s = otherString;
                 }
                 else if(this.ruins[row][column] == 3) {
-                    String otherString = s + '_';
+                    String otherString = s + '.'; // USE '_' in TESTING!
                     s = otherString;
                 }
                 else {
@@ -285,10 +309,11 @@ public class Ruins {
     }
     
     public static void main(String[] args) {
-        Ruins rauniot = new Ruins(15, 15, 40, 0);
+        Ruins rauniot = new Ruins(50, 50, 100, 15);
         rauniot.initializeRuins();
-        rauniot.createHouse(7, 2, 6, 5);
-        rauniot.createHouse(0, 0, 4, 5);
+        rauniot.createRuins();
+        //rauniot.createHouse(15, 15, 15, 15);
+        //rauniot.createHouse(19, 10, 6, 6);
         //rauniot.createHouse(5, 2, 4, 9);
         rauniot.printRuins();
     }
