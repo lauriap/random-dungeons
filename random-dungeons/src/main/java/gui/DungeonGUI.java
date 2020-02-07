@@ -8,6 +8,7 @@ import dungeon.Dungeon;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
+import ruins.Ruins;
 
 /**
  * This is the GUI class for creating random dungeons using the Dungeon class.
@@ -178,11 +179,18 @@ public class DungeonGUI extends JFrame implements ActionListener{
                 
                 // generate dungeon based on selected dungeon type
                 if(type == 0) {
-                    Dungeon luola = new Dungeon(size, size, density, seed);
-                    luola.initializeDungeon();
-                    luola.makeDungeon();
-                    luola.printDungeon();
-                    dungeonPane.setText(luola.returnDungeonMap());
+                    Dungeon dng = new Dungeon(size, size, density, seed);
+                    dng.initializeDungeon();
+                    dng.makeDungeon();
+                    dng.printDungeon();
+                    dungeonPane.setText(dng.returnDungeonMap());
+                }
+                else if(type == 1) {
+                    Ruins rns = new Ruins(size, size, density, seed);
+                    rns.initializeRuins();
+                    rns.createRuins();
+                    rns.printRuins();
+                    dungeonPane.setText(rns.returnRuinsMap());
                 }
                 
                 printFrame.getContentPane().setLayout(null);

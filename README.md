@@ -1,7 +1,18 @@
-# Random Dungeon Generator Using Cellular Automata
+# Random Dungeon and Ruins Generator
 
-This Random Dungeon Generator is made as part of a data structures and algorithms laboratory course. The generator creates random ASCII dungeons pictured from above using cellular automata.
-The generator also has a simple GUI. The generator will be made using Java. Please refer to documentation for more details.
+This Random Dungeon Generator is made as part of a data structures and algorithms laboratory course. The generator creates random ASCII dungeons pictured from above using cellular automata (Cavern-type dungeon) or a self-made algorithm (Ruins-type dungeon).
+
+The generator also has a simple GUI. The program has been coded using java on a gradle build. Please refer to documentation for more details.
+
+**KNOWN ISSUES**
+
+* Unit testing for Ruins class missing. Will be added during week 5.
+* Cavern-type dungeon also forms caverns with inaccessible places. Will be fixed during week 5.
+* GUI window showing the generated dungeon is missing a scroll bar. Will be added during week 5.
+* Checkstyle corrections still need to be made.
+* Random class not implemented with a self-made data structure yet
+* Still considering whether to allow rectangular maps instead of squares.
+
 
 ## Weekly Reports (in Finnish)
 
@@ -10,6 +21,8 @@ The generator also has a simple GUI. The generator will be made using Java. Plea
 [Weekly Report 2](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_2.md)
 
 [Weekly Report 3](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_3.md)
+
+[Weekly Report 4](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_4.md)
 
 
 
@@ -44,10 +57,68 @@ The generator also has a simple GUI. The generator will be made using Java. Plea
 		#############...#######..###########...#####################
 		############################################################  
 		
-		Example dungeon.
+		Example Cavern-type dungeon.
 
 
-[About cellular automatons](http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels)
+
+
+		##################################################
+		#................................................#
+		#................................................#
+		#.....................####....#.#.##.............#
+		#..###.####...........#..#......#..#.............#
+		#..#...#..#.......###.#.......#.#..#.#...........#
+		#..#...#..#.......#...#..#....#.#..#.#...........#
+		#..#...#..#...........####....#.#..#.#...........#
+		#..#...#..#.....##.##.........#.#..#.#...........#
+		#..###.#..#.....#....#...#......#..#......###.##.#
+		#......#..#.....#....#...#...#..#..#......#......#
+		#......#..#.....#....#...#...##.####......#......#
+		#......#..#.....#......###................#......#
+		#......#.............#....................######.#
+		#......#.#######.....#...........................#
+		#......#.#.....#.....#...........................#
+		#........#...........#...........................#
+		#........#.....#.#####...........................#
+		#........#######.................###.#...........#
+		#................................#.....##.##.....#
+		#............########............#.....#...#.....#
+		#............#......#..................#...#.....#
+		#............#......#.......##.##................#
+		#............#......#.......#...#...###.####.....#
+		#.......##.#.#..................#...#......#.....#
+		#............#......#...##........#.#......#.....#
+		#..#####.....#......#.........##....#......#.....#
+		#..#...#.....#......#..######..#....########.....#
+		#..#...#.....#......#..#....#..#.................#
+		#..#...#.....########..#....#..#.................#
+		#..#...#...............#....#..#.................#
+		#..#...#.....#.........#.......#.................#
+		#..#...................#.........................#
+		#..#....##.###.........#...#.##..................#
+		#..#....#....#.........#...#..#..........######..#
+		#..##.#.#....#.........#...#..#..#.##....#....#..#
+		#.......#....#.........#...#..#..#..#....#....#..#
+		#.......#....#..####...##..#..#..#..#....##.###..#
+		#.......#....#..#..#.......#..#..#..#............#
+		#.......#....#..#..#..####.#..#..#..#...#.....#..#
+		#.......######..#.....#....####..#..#...#........#
+		#...............#..#..#..........#..#...#....###.#
+		#..................#..#...####...#..#...####.#...#
+		#...........######.#..#...#..#...####........#...#
+		#...........#....#.#..#...#..#...............#...#
+		#...........#....#....#...#.............####.#...#
+		#...........#....#....#...#..#..........#....#...#
+		#.......###.#....#........#..#..........#....#...#
+		#................................................#
+		##################################################
+
+		Example Ruins-type dungeon.
+
+
+
+
+[About cellular automata](http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels)
 
 
 
