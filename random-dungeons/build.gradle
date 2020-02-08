@@ -41,7 +41,7 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'dungeon.Dungeon'
+mainClassName = 'gui.DungeonGUI'
 
 jacocoTestReport {
     reports {

@@ -378,11 +378,12 @@ public class Ruins {
     
     
     // main is only for testing purposes
+    /*
     public static void main(String[] args) {
         Ruins rauniot = new Ruins(50, 50, 55, 0);
         rauniot.initializeRuins();
         rauniot.createRuins();
         rauniot.printRuins();
     }
-    
+    */
 }

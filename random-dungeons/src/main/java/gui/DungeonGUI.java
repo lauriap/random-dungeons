@@ -200,9 +200,6 @@ public class DungeonGUI extends JFrame implements ActionListener{
             }
         });
         
-        
-        
-        
         // functionality for exit button
         quitButton.addActionListener(new ActionListener() {
             @Override

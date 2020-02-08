@@ -277,6 +277,7 @@ public class Dungeon {
     }
     
     // main used here for testing purposes.
+    /*
     public static void main(String[] args) {
         Dungeon luola = new Dungeon(50, 50,45, 1337);
         luola.initializeDungeon();
@@ -300,4 +301,5 @@ public class Dungeon {
         System.out.println("MakeDungeon:");
         toinenLuola.printDungeon();
     }
+    */
 }
