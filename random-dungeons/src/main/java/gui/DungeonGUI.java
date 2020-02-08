@@ -1,10 +1,11 @@
 
 package gui;
 
+import dungeon.Dungeon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.*;
-import dungeon.Dungeon;
 import javax.swing.text.Document;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.text.html.StyleSheet;
@@ -14,8 +15,11 @@ import ruins.Ruins;
  * This is the GUI class for creating random dungeons using the Dungeon class.
  * @author lauri
  */
-public class DungeonGUI extends JFrame implements ActionListener{
+public class DungeonGUI extends JFrame implements ActionListener {
     
+    /**
+     * Constructor for DungeonGUI. Runs initGUI() method.
+     */
     public DungeonGUI() {
         initGUI();
     }
@@ -24,8 +28,6 @@ public class DungeonGUI extends JFrame implements ActionListener{
      * This method initializes the GUI for the dungeon generator.
      */
     public final void initGUI() {
-        
-        
         
         // x coordinate of first label
         int firstX = 75;
@@ -36,7 +38,6 @@ public class DungeonGUI extends JFrame implements ActionListener{
         // button/drop down height
         int buttonHeight = 30;
         
-        
         // create dungeon type label + drop down
         JLabel dungeonTypeLabel = new JLabel("Dungeon type");
         
@@ -45,7 +46,7 @@ public class DungeonGUI extends JFrame implements ActionListener{
         dungeonList.setSelectedIndex(0);
         
         dungeonTypeLabel.setBounds(firstX, firstY, buttonWidth, buttonHeight);
-        dungeonList.setBounds(firstX, firstY+25, buttonWidth, buttonHeight);
+        dungeonList.setBounds(firstX, firstY + 25, buttonWidth, buttonHeight);
         
         getContentPane().add(dungeonTypeLabel);
         getContentPane().add(dungeonList);
@@ -60,8 +61,10 @@ public class DungeonGUI extends JFrame implements ActionListener{
         JComboBox sizeList = new JComboBox(dungeonSizes);
         sizeList.setSelectedIndex(1);
 
-        dungeonSizeLabel.setBounds(firstX, firstY+55, buttonWidth, buttonHeight);
-        sizeList.setBounds(firstX, firstY+80, buttonWidth, buttonHeight);
+        dungeonSizeLabel.setBounds(firstX, firstY + 55, 
+                buttonWidth, buttonHeight);
+        sizeList.setBounds(firstX, firstY + 80, 
+                buttonWidth, buttonHeight);
 
         getContentPane().add(dungeonSizeLabel);
         getContentPane().add(sizeList);
@@ -76,22 +79,22 @@ public class DungeonGUI extends JFrame implements ActionListener{
         JComboBox densityList = new JComboBox(wallDensities);
         densityList.setSelectedIndex(1);
         
-        wallDensityLabel.setBounds(firstX, firstY+110, buttonWidth, buttonHeight);
-        densityList.setBounds(firstX, firstY+135, buttonWidth, buttonHeight);
+        wallDensityLabel.setBounds(firstX, firstY + 110, 
+                buttonWidth, buttonHeight);
+        densityList.setBounds(firstX, firstY + 135, 
+                buttonWidth, buttonHeight);
         
         getContentPane().add(wallDensityLabel);
         getContentPane().add(densityList);
-        
-        
-        
         
         // create random seed spinner
         JLabel randomSeedLabel = new JLabel("Random seed (default 0)");
         SpinnerNumberModel seedModel = new SpinnerNumberModel(0, 0, 10000, 1);
         JSpinner seedSpinner = new JSpinner(seedModel);
         
-        randomSeedLabel.setBounds(firstX-15, firstY+165, buttonWidth+60, buttonHeight);
-        seedSpinner.setBounds(firstX, firstY+190, buttonWidth, buttonHeight);
+        randomSeedLabel.setBounds(firstX - 15, firstY + 165, 
+                buttonWidth + 60, buttonHeight);
+        seedSpinner.setBounds(firstX, firstY + 190, buttonWidth, buttonHeight);
         
         getContentPane().add(randomSeedLabel);
         getContentPane().add(seedSpinner);
@@ -104,8 +107,9 @@ public class DungeonGUI extends JFrame implements ActionListener{
         JButton quitButton = new JButton("Quit");
         
         // define button measures & add to frame        
-        generateButton.setBounds(firstX, firstY+240, buttonWidth, buttonHeight);
-        quitButton.setBounds(firstX, firstY+300, buttonWidth, buttonHeight);
+        generateButton.setBounds(firstX, firstY + 240, 
+                buttonWidth, buttonHeight);
+        quitButton.setBounds(firstX, firstY + 300, buttonWidth, buttonHeight);
         
         getContentPane().setLayout(null);
         getContentPane().add(generateButton);
@@ -147,19 +151,21 @@ public class DungeonGUI extends JFrame implements ActionListener{
                 dungeonPane.setEditable(false);
                 dungeonPane.setBounds(0, 0, 1500, 850);
                 
-                // create CSS style sheet for dungeonPane in order to change line spacing and font
+                // create CSS style sheet for dungeonPane 
+                // in order to change line spacing and font
                 HTMLEditorKit kit = new HTMLEditorKit();
                 dungeonPane.setEditorKit(kit);
                 JScrollPane scrollPane = new JScrollPane(dungeonPane);
                 
                 StyleSheet styleSheet = kit.getStyleSheet();
-                styleSheet.addRule("body { font: 8px courier, sans-serif; line-height: 0.7;}"); // THIS NEEDS TO BE FIXED! LINE-HEIGHT NOT WORKING! 
-               //styleSheet.addRule("body { line-height:80%; }");
+                // THIS NEEDS TO BE FIXED! LINE-HEIGHT NOT WORKING! 
+                styleSheet.addRule("body { font: 8px courier, sans-serif; "
+                        + "line-height: 0.7;}"); 
+               
+                //styleSheet.addRule("body { line-height:80%; }");
                 
                 Document doc = kit.createDefaultDocument();
                 dungeonPane.setDocument(doc);
-                
-                
                 
                 // add editor pane to print frame
                 printFrame.getContentPane().add(dungeonPane);
@@ -178,14 +184,13 @@ public class DungeonGUI extends JFrame implements ActionListener{
                 });
                 
                 // generate dungeon based on selected dungeon type
-                if(type == 0) {
+                if (type == 0) {
                     Dungeon dng = new Dungeon(size, size, density, seed);
                     dng.initializeDungeon();
                     dng.makeDungeon();
                     dng.printDungeon();
                     dungeonPane.setText(dng.returnDungeonMap());
-                }
-                else if(type == 1) {
+                } else if (type == 1) {
                     Ruins rns = new Ruins(size, size, density, seed);
                     rns.initializeRuins();
                     rns.createRuins();
@@ -209,8 +214,12 @@ public class DungeonGUI extends JFrame implements ActionListener{
         });
     }
     
+    
     @Override
-    public void actionPerformed(ActionEvent e){
+    /**
+     * Necessary override for actionPerformed.
+     */
+    public void actionPerformed(ActionEvent e) {
         System.out.println("nothing!");
     }
     
@@ -222,10 +231,9 @@ public class DungeonGUI extends JFrame implements ActionListener{
     public int getDungeonType(JComboBox box) {
         String s = (String)box.getSelectedItem();
         
-        if(s == "Cavern") {
+        if (s == "Cavern") {
             return 0;
-        }
-        else {
+        } else {
             return 1;
         }
     }
@@ -239,13 +247,11 @@ public class DungeonGUI extends JFrame implements ActionListener{
         
         String s = (String)box.getSelectedItem();
         
-        if(s == "Small") {
+        if (s == "Small") {
             return 50;
-        }
-        else if(s == "Medium") {
+        } else if (s == "Medium") {
             return 100;
-        }
-        else {
+        } else {
             return 150;
         }
     }
@@ -258,13 +264,11 @@ public class DungeonGUI extends JFrame implements ActionListener{
     public int getWallDensity(JComboBox box) {
         String s = (String)box.getSelectedItem();
         
-        if(s == "Low") {
+        if (s == "Low") {
             return 40;
-        }
-        else if(s == "Medium") {
+        } else if (s == "Medium") {
             return 45;
-        }
-        else {
+        } else {
             return 50;
         }
     }
@@ -278,8 +282,12 @@ public class DungeonGUI extends JFrame implements ActionListener{
         return (Integer) spinner.getValue();
     }
   
+    /**
+     * Main class for the program. Starts up the GUI.
+     * @param args 
+     */
     public static void main(String[] args) {
-            DungeonGUI gui = new DungeonGUI();
-            gui.setVisible(true);
+        DungeonGUI gui = new DungeonGUI();
+        gui.setVisible(true);
     }
 }

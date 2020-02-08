@@ -27,7 +27,8 @@ public class Ruins {
      * Constructor for a new Ruins.
      * @param n number of rows
      * @param m number of columns
-     * @param p probability of a tile being a wall in the initialization phase for a Dungeon. In Ruins, it is used to adjust the wallLimit variable
+     * @param p probability of a tile being a wall in the initialization phase
+     * for a Dungeon. In Ruins, it is used to adjust the wallLimit variable
      * @param seed used for testing. 0 = random ruins (normal use), 
      * > 0 = reconstructable ruins (testing use). Standard test seed = 1337.
      */
@@ -36,20 +37,19 @@ public class Ruins {
         this.ruinsWidth = m;
         
         
-        if(p <= 40) {
-            this.wallLimit = n*m/6;
+        if (p <= 40) {
+            this.wallLimit = n * m / 6;
+        } else if (p >= 50) {
+            this.wallLimit = n * m / 2;
+        } else {
+            this.wallLimit = n * m / 4;
         }
-        else if(p >= 50) {
-            this.wallLimit = n*m/2;
-        }
-        else this.wallLimit = n*m/4;
         
         this.ruins = new int[this.ruinsHeight][this.ruinsWidth];
         
-        if(seed != 0) { //seed is 0 for normal use, above 0 for testing.
+        if (seed != 0) { //seed is 0 for normal use, above 0 for testing.
             this.rand = new Random(seed);
-        }
-        else {
+        } else {
             this.rand = new Random();
         }
     }
@@ -62,7 +62,7 @@ public class Ruins {
         return this.ruins;
     }
     
-        /**
+    /**
      * Getter for ruinsWidth.
      * @return int value for ruins width (10-1000).
      */
@@ -86,9 +86,9 @@ public class Ruins {
         int x = this.rand.nextInt(this.ruinsHeight);
         int y = this.rand.nextInt(this.ruinsWidth);
         
-        while(this.ruins[x][y] != 0 ) {
-                x = this.rand.nextInt(this.ruinsHeight);
-                y = this.rand.nextInt(this.ruinsWidth);
+        while (this.ruins[x][y] != 0) {
+            x = this.rand.nextInt(this.ruinsHeight);
+            y = this.rand.nextInt(this.ruinsWidth);
         }
         
         int[] t = new int[] {x, y};
@@ -101,19 +101,16 @@ public class Ruins {
      */
     public void initializeRuins() {
         
-        for(int column = 0, row = 0; row < this.ruinsHeight; row++) {
-            for(column = 0; column < ruinsWidth; column++) {
+        for (int column = 0, row = 0; row < this.ruinsHeight; row++) {
+            for (column = 0; column < ruinsWidth; column++) {
                 
-                if(column == 0) { //create borders when column or row is 0 or max height/width
+                if (column == 0) { //create borders when column or row is 0 or max height/width
                     this.ruins[column][row] = 1;
-                }
-                else if(row == 0) {
+                } else if (row == 0) {
                     this.ruins[column][row] = 1;
-                }
-                else if(column == this.ruinsWidth-1) {
+                } else if (column == this.ruinsWidth - 1) {
                     this.ruins[column][row] = 1;
-                }
-                else if(row == this.ruinsHeight-1) {
+                } else if (row == this.ruinsHeight - 1) {
                     this.ruins[column][row] = 1;
                 }
             }
@@ -129,62 +126,67 @@ public class Ruins {
      */
     public void createHouse(int x, int y, int width, int height) {
         // ensure that the rooms are large enough
-        if(width < 5) {
+        if (width < 5) {
             width += 5;
         }
-        if(height < 5) {
+        if (height < 5) {
             height += 5;
         }
         
-        for(int i = x; i <= x+height; i++) {
+        for (int i = x; i <= x + height; i++) {
             // create free space around the house
             this.placeSpace(i, y);
-            this.placeSpace(i, y+width);
+            this.placeSpace(i, y + width);
 
-        for(int j = y; j <= y+width; j++) {
-            this.placeSpace(x, j);
-            this.placeSpace(x+height, j);
-        }
+            for (int j = y; j <= y + width; j++) {
+                this.placeSpace(x, j);
+                this.placeSpace(x + height, j);
+            }
             // create left and right walls
-            this.placeWall(i, y+1);
-            this.placeWall(i, y+width-1);
+            this.placeWall(i, y + 1);
+            this.placeWall(i, y + width - 1);
         }
         
-        for(int z = y+1; z <= y+width-1; z++) {
+        for (int z = y + 1; z <= y + width - 1; z++) {
             // create upper and lower walls
-            this.placeWall(x+1, z);
-            this.placeWall(x+height-1, z);
+            this.placeWall(x + 1, z);
+            this.placeWall(x + height - 1, z);
         }
         
         // place house space inside the house ruins
-        for(int k = x+2; k < x+height-1; k++) {
-            for(int l = y + 2; l < y+width-1; l++) {
+        for (int k = x + 2; k < x + height - 1; k++) {
+            for (int l = y + 2; l < y + width - 1; l++) {
                 this.placeHouseSpace(k, l);
             }
         }
-        this.wallCount += (2 * height + 2 * width); //increase wallCount to ensure that the algorithm stops after wallLimit is reached
+        
+        // increase wallCount to ensure that the algorithm stops 
+        // after wallLimit is reached
+        this.wallCount += (2 * height + 2 * width); 
         
         this.createHole(x, y, width, height);
 
     }
 
     /**
-     * Runs createHouse method until wallCount exceeds ruinsHeight*ruinsWidth*(100/wallProbability). wallCount is increased by houseHeight*houseWidth with each house. 
+     * Runs createHouse method until wallCount exceeds wallLimit. 
+     * wallCount is increased by (2 * houseHeight + 2 * houseWidth) 
+     * with each house. 
      */
     public void createRuins() {
         int h = 0;
         int w = 0;
         
-        while(this.wallCount < this.wallLimit) {
+        while (this.wallCount < this.wallLimit) {
             h = this.rand.nextInt(15);
             w = this.rand.nextInt(10);
-            int[] t = getRandomStartPoint(); //get (x,y) coordinate for the house in ruins
+            //get (x,y) coordinate for the house in ruins
+            int[] t = getRandomStartPoint(); 
             this.createHouse(t[0], t[1], w, h);
         }
-        
     }
     
-     /**
+    /**
      * Places a wall on a map if fits.
      * Rules:
      * Tiles next to walls or borders are always free spaces.
@@ -193,21 +195,19 @@ public class Ruins {
      * @param y y coordinate
      */
     public void placeWall(int x, int y) { 
-        if(this.isOutOfBounds(x, y)) {
+        if (this.isOutOfBounds(x, y)) {
             return;
-        }
-        else if(this.ruins[x][y] !=0) {
+        } else if (this.ruins[x][y] != 0) {
             return;
-        }
-        else if(x == 1 || x == (this.getRuinsHeight()-2) || y == 1 || y == (this.getRuinsWidth()-2)) {
+        } else if (x == 1 || x == (this.getRuinsHeight() - 2) 
+                || y == 1 || y == (this.getRuinsWidth() - 2)) {
             this.ruins[x][y] = 2;
-        }
-        else {
+        } else {
             this.ruins[x][y] = 1;
         }
     }
     
-     /**
+    /**
      * Places a free space on a around a house if fits.
      * Rules:
      * Tiles next to walls or borders are always free spaces. Controlled with method isOutOfBounds.
@@ -216,18 +216,16 @@ public class Ruins {
      * @param y y coordinate
      */
     public void placeSpace(int x, int y) {
-        if(this.isOutOfBounds(x, y)) {
+        if (this.isOutOfBounds(x, y)) {
             return;
-        }
-        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2 || this.ruins[x][y] == 3) {
+        } else if (this.ruins[x][y] == 1 || this.ruins[x][y] == 2 || this.ruins[x][y] == 3) {
             return;
-        }
-        else {
+        } else {
             this.ruins[x][y] = 2;
         }
     }
     
-         /**
+    /**
      * Places a house space inside a house if it fits.
      * Rules:
      * Tiles next to walls or borders are always free spaces. Controlled with method isOutOfBounds.
@@ -236,13 +234,11 @@ public class Ruins {
      * @param y y coordinate
      */
     public void placeHouseSpace(int x, int y) {
-        if(this.isOutOfBounds(x, y)) {
+        if (this.isOutOfBounds(x, y)) {
             return;
-        }
-        else if(this.ruins[x][y] == 1 || this.ruins[x][y] == 2) {
+        } else if (this.ruins[x][y] == 1 || this.ruins[x][y] == 2) {
             return;
-        }
-        else {
+        } else {
             this.ruins[x][y] = 3;
         }
     }
@@ -256,47 +252,40 @@ public class Ruins {
         int r = rand.nextInt(3);
         
         //north
-        if(r == 0) {
-            if(!this.isOutOfBounds(x+1, y+(width/2))) {
-                this.ruins[x+1][y+(width/2)] = 4;
+        if (r == 0) {
+            if (!this.isOutOfBounds(x + 1, y + (width / 2))) {
+                this.ruins[x + 1][y + (width / 2)] = 4;
             }
             
-        }
-        //east
-        else if(r == 1) {
-            if(!this.isOutOfBounds(x+(height/2), y+width-1)) {
-                this.ruins[x+(height/2)][y+width-1] = 4;
+        } else if (r == 1) { // east
+            if (!this.isOutOfBounds(x + (height / 2), y + width - 1)) {
+                this.ruins[x + (height / 2)][y + width - 1] = 4;
             }
             
-        }
-        //south
-        else if(r == 2) {
-            if(!this.isOutOfBounds(x+height-1, y+(width/2))) {
-                this.ruins[x+height-1][y+(width/2)] = 4;
+        } else if (r == 2) { // south
+            if (!this.isOutOfBounds(x + height - 1, y + (width / 2))) {
+                this.ruins[x + height - 1][y + (width / 2)] = 4;
             }
             
-        }
-        //west
-        else if(r == 3) {
-            if(!this.isOutOfBounds(x+(height/2), y+1)) {
-                this.ruins[x+(height/2)][y+1] = 4;
+        } else if (r == 3) { // west
+            if (!this.isOutOfBounds(x + (height / 2), y + 1)) {
+                this.ruins[x + (height / 2)][y + 1] = 4;
             }
         }
     }
     
-        /**
+    /**
      * Checks whether the parameter tile is out of bounds.
      * @param x x coordinate
      * @param y y coordinate
      * @return true = out of bounds, false = not out of bounds
      */
     public boolean isOutOfBounds(int x, int y) {
-        if( x < 0 || y < 0) {
+        if (x < 0 || y < 0) {
             return true;
-            }
-            else if(x > this.ruinsWidth-2 || y > this.ruinsHeight-2 ) {
-                return true;
-            }
+        } else if (x > this.ruinsWidth - 2 || y > this.ruinsHeight - 2) {
+            return true;
+        }
         return false;
     }
     
@@ -307,31 +296,27 @@ public class Ruins {
         char w = '#';
         char p = '.';
         String s = "";
-        for(int column = 0, row = 0; row <= this.ruinsHeight-1; row++) {
-            for(column = 0; column <= this.ruinsHeight-1; column++) {
-                if(this.ruins[row][column] == 1) {
+        for (int column = 0, row = 0; row <= this.ruinsHeight - 1; row++) {
+            for (column = 0; column <= this.ruinsHeight - 1; column++) {
+                if (this.ruins[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 2) {
+                } else if (this.ruins[row][column] == 2) {
                     String otherString = s + '.'; // USE 'o' IN TESTING!
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 3) {
+                } else if (this.ruins[row][column] == 3) {
                     String otherString = s + '.'; // USE '_' in TESTING!
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 4) {
+                } else if (this.ruins[row][column] == 4) {
                     String otherString = s + '.'; // USE '0' in TESTING!
                     s = otherString;
-                }
-                else {
+                } else {
                     String otherString = s + '.';
                     s = otherString;
                 }
             }
-        String endOfRowString = s + "\n";
-        s = endOfRowString;
+            String endOfRowString = s + "\n";
+            s = endOfRowString;
         }
         System.out.println(s);
     }
@@ -345,31 +330,27 @@ public class Ruins {
         char p = '.';
         
         String s = "<html><body>";
-        for(int column = 0, row = 0; row <= this.ruinsHeight-1; row++) {
-            for(column = 0; column <= this.ruinsHeight-1; column++) {
-                if(this.ruins[row][column] == 1) {
+        for (int column = 0, row = 0; row <= this.ruinsHeight - 1; row++) {
+            for (column = 0; column <= this.ruinsHeight - 1; column++) {
+                if (this.ruins[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 2) {
+                } else if (this.ruins[row][column] == 2) {
                     String otherString = s + '.'; // USE 'o' IN TESTING!
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 3) {
+                } else if (this.ruins[row][column] == 3) {
                     String otherString = s + '.'; // USE '_' in TESTING!
                     s = otherString;
-                }
-                else if(this.ruins[row][column] == 4) {
+                } else if (this.ruins[row][column] == 4) {
                     String otherString = s + '.'; // USE '0' in TESTING!
                     s = otherString;
-                }
-                else {
+                } else {
                     String otherString = s + '.';
                     s = otherString;
                 }
             }
-        String endOfRowString = s + "<br>";
-        s = endOfRowString;
+            String endOfRowString = s + "<br>";
+            s = endOfRowString;
         }
         String otherS = s + "</body></html>";
         s = otherS;

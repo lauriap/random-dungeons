@@ -28,10 +28,10 @@ public class Dungeon {
         this.wallProbability = p;
         this.dungeon = new int[this.dungeonHeight][this.dungeonWidth];
         
-        if(seed != 0) { //seed is 0 for normal use, above 0 for testing.
+        if (seed != 0) { //seed is 0 for normal use, above 0 for testing.
             this.rand = new Random(seed);
-        }
-        else {
+        
+        } else {
             this.rand = new Random();
         }
         
@@ -70,33 +70,38 @@ public class Dungeon {
     }
     
     /**
-     * Places wall blocks at random locations to a dungeon matrix (map) as the first step towards creating a random dungeon.
+     * Places wall blocks at random locations to a dungeon matrix (map) as
+     * the first step towards creating a random dungeon.
      */
     public void initializeDungeon() {
         
         int temp = 0; //temporary variable
         
-        for(int column = 0, row = 0; row < this.dungeonHeight; row++) {
-            for(column = 0; column < dungeonWidth; column++) {
+        for (int column = 0, row = 0; row < this.dungeonHeight; row++) {
+            for (column = 0; column < dungeonWidth; column++) {
                 
-                if(column == 0) { //create borders when column or row is 0 or max height/width
+                //create borders when column or row is 0 or max height/width
+                if (column == 0) { 
                     this.dungeon[column][row] = 1;
-                }
-                else if(row == 0) {
+                
+                } else if (row == 0) {
                     this.dungeon[column][row] = 1;
-                }
-                else if(column == this.dungeonWidth-1) {
+                
+                } else if (column == this.dungeonWidth - 1) {
                     this.dungeon[column][row] = 1;
-                }
-                else if(row == this.dungeonHeight-1) {
+                
+                } else if (row == this.dungeonHeight - 1) {
                     this.dungeon[column][row] = 1;
-                }
-                else { //if not next to dungeon border, place wall blocks at random locations
+                
+                //if not next to dungeon border, 
+                //place wall blocks at random locations
+                } else { 
                     temp = this.dungeonHeight / 2;
-                    if(row == temp) {
-                        this.dungeon[column][row] = 0; // ensures that the middle of the map is explorable
-                    }
-                    else {
+                    if (row == temp) {
+                        // ensures that the middle of the map is explorable
+                        this.dungeon[column][row] = 0; 
+                    
+                    } else {
                         this.dungeon[column][row] = wallOrSpace();
                     }
                 }
@@ -105,25 +110,27 @@ public class Dungeon {
     }
     
     /**
-     * Determines whether a tile is set to be a wall or explorable space based on probability. 
+     * Determines whether a tile is set to be a wall 
+     * or explorable space based on probability. 
      * If the wall probability (user input from Dungeon constructor) is higher 
      * than a random number between 0-100, returns 1 ( = wall).
      * Otherwise returns 0.
      * @return 1 = wall, 0 = explorable space 
      */
     public int wallOrSpace() {
-        if(this.wallProbability >= this.rand.nextInt(100)) {
+        if (this.wallProbability >= this.rand.nextInt(100)) {
             return 1;
         }
         return 0;
     }
     
     /**
-     * Creates a random dungeon from an initialized dungeon by invoking placeWall on all tiles. 
+     * Creates a random dungeon from an initialized dungeon 
+     * by invoking placeWall on all tiles. 
      */
     public void makeDungeon() {
-        for(int column=0, row=0; row <= this.dungeonHeight-1; row++) {
-            for(column = 0; column <= this.dungeonWidth-1; column++) {
+        for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
+            for (column = 0; column <= this.dungeonWidth - 1; column++) {
                 this.dungeon[column][row] = placeWall(column,row);
             }
         }
@@ -143,16 +150,15 @@ public class Dungeon {
     public int placeWall(int x, int y) {
         int numberOfWalls = getAdjacentWalls(x, y);
         
-        if(this.dungeon[x][y] == 1) {
-            if(numberOfWalls >= 4) {
+        if (this.dungeon[x][y] == 1) {
+            if (numberOfWalls >= 4) {
                 return 1;
             }
-            if(numberOfWalls < 2) {
+            if (numberOfWalls < 2) {
                 return 0;
             }
-        }
-        else {
-            if(numberOfWalls >= 5) {
+        } else {
+            if (numberOfWalls >= 5) {
                 return 1;
             }
         }
@@ -160,7 +166,8 @@ public class Dungeon {
     }
     
     /**
-     * Returns the number of wall tiles adjacent to the original tile. If a wall tile is out of dungeon bounds, it is counted as a wall ( = 1).
+     * Returns the number of wall tiles adjacent to the original tile. 
+     * If a wall tile is out of dungeon bounds, it is counted as a wall ( = 1).
      * @param x starting point x parameter
      * @param y starting point y parameter
      * @return 
@@ -173,10 +180,10 @@ public class Dungeon {
         
         int wallCounter = 0;
         
-        for(int iY = startY; iY <= endY; iY++) {
-            for(int iX = startX; iX <= endX; iX++) {
-                if(!(iX==x && iY==y)) {
-                    if(isWall(iX,iY)) {
+        for (int iY = startY; iY <= endY; iY++) {
+            for (int iX = startX; iX <= endX; iX++) {
+                if (!(iX == x && iY == y)) {
+                    if (isWall(iX,iY)) {
                         wallCounter += 1;
                     }
                 }
@@ -193,15 +200,15 @@ public class Dungeon {
      */
     public boolean isWall(int x,int y) {
         // Checks if the wall is out of bounds
-        if( isOutOfBounds(x,y)) {
+        if (isOutOfBounds(x,y)) {
             return true;
         }
 
-        if( this.dungeon[x][y] == 1) {
+        if (this.dungeon[x][y] == 1) {
             return true;
         }
 
-        if(this.dungeon[x][y] == 0) {
+        if (this.dungeon[x][y] == 0) {
             return false;
         }
         
@@ -215,12 +222,13 @@ public class Dungeon {
      * @return true = out of bounds, false = not out of bounds
      */
     public boolean isOutOfBounds(int x, int y) {
-        if( x < 0 || y < 0) {
+        if (x < 0 || y < 0) {
             return true;
-            }
-            else if(x > this.dungeonWidth-1 || y > this.dungeonHeight-1 ) {
-                return true;
-            }
+            
+        } else if (x > this.dungeonWidth - 1 || y > this.dungeonHeight - 1) {
+            return true;
+        } 
+        
         return false;
     }
  
@@ -231,19 +239,18 @@ public class Dungeon {
         char w = '#';
         char p = '.';
         String s = "";
-        for(int column = 0, row = 0; row <= this.dungeonHeight-1; row++) {
-            for(column = 0; column <= this.dungeonHeight-1; column++) {
-                if(this.dungeon[row][column] == 1) {
+        for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
+            for (column = 0; column <= this.dungeonHeight - 1; column++) {
+                if (this.dungeon[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
-                }
-                else {
+                } else {
                     String otherString = s + '.';
                     s = otherString;
                 }
             }
-        String endOfRowString = s + "\n";
-        s = endOfRowString;
+            String endOfRowString = s + "\n";
+            s = endOfRowString;
         }
         System.out.println(s);
     }
@@ -257,19 +264,18 @@ public class Dungeon {
         char p = '.';
         
         String s = "<html><body>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
-        for(int column = 0, row = 0; row <= this.dungeonHeight-1; row++) {
-            for(column = 0; column <= this.dungeonHeight-1; column++) {
-                if(this.dungeon[row][column] == 1) {
+        for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
+            for (column = 0; column <= this.dungeonHeight - 1; column++) {
+                if (this.dungeon[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
-                }
-                else {
+                } else {
                     String otherString = s + '.';
                     s = otherString;
                 }
             }
-        String endOfRowString = s + "<br>";
-        s = endOfRowString;
+            String endOfRowString = s + "<br>";
+            s = endOfRowString;
         }
         String otherS = s + "</body></html>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
         s = otherS;
