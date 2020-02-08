@@ -97,7 +97,7 @@ public class TestDungeon {
     
     /**
      * Tests that isOutOfBounds() calculates the boundaries of the dungeon correctly.
-     */
+     */ 
     @Test
     public void testIsOutOfBounds() {
         Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);

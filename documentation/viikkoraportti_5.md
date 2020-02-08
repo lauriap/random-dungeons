@@ -27,6 +27,7 @@ perjantai 14.02.2020
 
 la 8.2.2020
 * 1.5h Checkstyle-korjausten teko
+* 6.5h TestRuins-testiluokan kirjoittamista
 
 
 

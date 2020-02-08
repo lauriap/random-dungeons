@@ -250,8 +250,8 @@ public class Ruins {
      * North = 0, east = 1, south = 2, west = 3;
      */
     public void createHole(int x, int y, int width, int height) {
-        int r = rand.nextInt(3);
-        
+        int r = rand.nextInt(4);
+
         //north
         if (r == 0) {
             if (!this.isOutOfBounds(x + 1, y + (width / 2))) {
@@ -364,7 +364,11 @@ public class Ruins {
     public static void main(String[] args) {
         Ruins rauniot = new Ruins(10, 10, 15, 1005);
         rauniot.initializeRuins();
-        rauniot.createRuins();
+        for(int i = 0; i < 15; i++) {
+            rauniot.createHole(2, 2, 5, 5);
+        }
+        
+        //rauniot.createRuins();
         rauniot.printRuins();
         System.out.println();
     }

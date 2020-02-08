@@ -161,21 +161,34 @@ public class TestRuins {
     /**
      * Tests that createHole() method places the hole in the hand-calculated
      * location.
+     * The test is continued until all possible random values 0-3 
+     * have been tested.
      */
     @Test
     public void testCreateHole() {
         Ruins testRuins = new Ruins(10, 10, 15, 1005);
-        
-        testRuins.createHole(1, 1, 5, 5);
-        assertEquals(4, testRuins.getRuinsArray()[3][5]);
-        
-        testRuins.createHole(2, 3, 6, 6);
-        assertEquals(4, testRuins.getRuinsArray()[3][6]);
 
-        testRuins.createHole(3, 4, 5, 5);
-        assertEquals(4, testRuins.getRuinsArray()[5][8]);
+        // creates a hole to all possible four locations.
+        for(int i = 0; i < 15; i++) {
+            testRuins.createHole(2, 2, 5, 5);
+        }
+        
+        int[][] ruinsArray = testRuins.getRuinsArray();
+        
+        int count = 0; //counter for the number of holes
+
+        // counts the number of holes on the map. 
+        // Should be 4 (north-east-south-west)
+        for(int i = 0; i < 10; i++) {
+            for(int j = 0; j < 10; j++) {
+                if (ruinsArray[i][j] == 4) {
+                    count++;
+                }
+            }
+        }
+        assertEquals(4, count);
     }
-
+    
     
     
     /**
@@ -222,7 +235,7 @@ public class TestRuins {
 
         testArray[8][2] = 2; // o
         testArray[8][7] = 2; // o
-        testArray[6][7] = 4; // 0
+        testArray[6][2] = 4; // 0
         
         
         // test that each element in the arrays are equal.
