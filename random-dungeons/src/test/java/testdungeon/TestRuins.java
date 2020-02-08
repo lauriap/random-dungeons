@@ -95,6 +95,87 @@ public class TestRuins {
         }
     }
     
+    /**
+     * Checks that getRuinsWidth() returns the correct width.
+     */
+    @Test
+    public void testGetRuinsWidth() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        assertEquals(10, testRuins.getRuinsWidth());
+    }
+    
+    /**
+     * Checks that getRuinsHeight() returns the correct height.
+     */
+    @Test
+    public void testGetRuinsHeight() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        assertEquals(10, testRuins.getRuinsHeight());
+    }
+    
+    /**
+     * Tests that getRandomStartPoint() correctly returns 
+     * hand-calculated values for three coordinates. The expected value for 
+     * coordinate x is the nth value in the Random(10) nextInt sequence and
+     * the value for y is the n+3th value, where n >= 1. 
+     * The first values in the sequence are 5, 7, 1, 1, 3, 0, so the first
+     * coordinate needs to be (5, 1).
+     */
+    @Test
+    public void testGetRandomStartPoint() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        int[] t = new int[]{5, 1};
+        assertEquals(t[0], testRuins.getRandomStartPoint()[0]);
+        assertEquals(t[1], testRuins.getRandomStartPoint()[1]);
+        
+        int[] a = new int[]{3, 7};
+        assertEquals(a[0], testRuins.getRandomStartPoint()[0]);
+        assertEquals(a[1], testRuins.getRandomStartPoint()[1]);
+        
+        int[] b = new int[]{7, 5};
+        assertEquals(b[0], testRuins.getRandomStartPoint()[0]);
+        assertEquals(b[1], testRuins.getRandomStartPoint()[1]);
+    }
+
+    /**
+     * Tests that isOutOfBounds() calculates the boundaries of 
+     * the dungeon correctly.
+     */
+    @Test
+    public void testIsOutOfBounds() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        
+        assertEquals(true, testRuins.isOutOfBounds(-1, 0));
+        assertEquals(true, testRuins.isOutOfBounds(0, -1));
+        assertEquals(true, testRuins.isOutOfBounds(-1, -1));
+        assertEquals(true, testRuins.isOutOfBounds(9, 0));
+        assertEquals(true, testRuins.isOutOfBounds(0, 9));
+        assertEquals(true, testRuins.isOutOfBounds(9, 9));
+        for(int i = 0; i < 9; i++) {
+            for(int j = 0; j < 9; j++) {
+                assertEquals(false, testRuins.isOutOfBounds(i, j));
+            }
+        }
+    }
+    
+    /**
+     * Tests that createHole() method places the hole in the hand-calculated
+     * location.
+     */
+    @Test
+    public void testCreateHole() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        
+        testRuins.createHole(1, 1, 5, 5);
+        assertEquals(4, testRuins.getRuinsArray()[3][5]);
+        
+        testRuins.createHole(2, 3, 6, 6);
+        assertEquals(4, testRuins.getRuinsArray()[3][6]);
+
+        testRuins.createHole(3, 4, 5, 5);
+        assertEquals(4, testRuins.getRuinsArray()[5][8]);
+    }
+
     
     
     /**
