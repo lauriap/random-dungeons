@@ -97,14 +97,15 @@ public class Ruins {
     }
     
     /**
-     * Creates map borders for the ruins.
+     * Creates map border walls (= 1) for the ruins.
      */
     public void initializeRuins() {
         
         for (int column = 0, row = 0; row < this.ruinsHeight; row++) {
             for (column = 0; column < ruinsWidth; column++) {
                 
-                if (column == 0) { //create borders when column or row is 0 or max height/width
+                //create borders when column or row is 0 or max height/width
+                if (column == 0) { 
                     this.ruins[column][row] = 1;
                 } else if (row == 0) {
                     this.ruins[column][row] = 1;
@@ -302,13 +303,13 @@ public class Ruins {
                     String otherString = s + '#';
                     s = otherString;
                 } else if (this.ruins[row][column] == 2) {
-                    String otherString = s + '.'; // USE 'o' IN TESTING!
+                    String otherString = s + 'o'; // USE 'o' IN TESTING!
                     s = otherString;
                 } else if (this.ruins[row][column] == 3) {
-                    String otherString = s + '.'; // USE '_' in TESTING!
+                    String otherString = s + '_'; // USE '_' in TESTING!
                     s = otherString;
                 } else if (this.ruins[row][column] == 4) {
-                    String otherString = s + '.'; // USE '0' in TESTING!
+                    String otherString = s + '0'; // USE '0' in TESTING!
                     s = otherString;
                 } else {
                     String otherString = s + '.';
@@ -336,13 +337,13 @@ public class Ruins {
                     String otherString = s + '#';
                     s = otherString;
                 } else if (this.ruins[row][column] == 2) {
-                    String otherString = s + '.'; // USE 'o' IN TESTING!
+                    String otherString = s + '.';
                     s = otherString;
                 } else if (this.ruins[row][column] == 3) {
-                    String otherString = s + '.'; // USE '_' in TESTING!
+                    String otherString = s + '.'; 
                     s = otherString;
                 } else if (this.ruins[row][column] == 4) {
-                    String otherString = s + '.'; // USE '0' in TESTING!
+                    String otherString = s + '.'; 
                     s = otherString;
                 } else {
                     String otherString = s + '.';
@@ -359,12 +360,12 @@ public class Ruins {
     
     
     // main is only for testing purposes
-    /*
+    
     public static void main(String[] args) {
-        Ruins rauniot = new Ruins(50, 50, 55, 0);
+        Ruins rauniot = new Ruins(10, 10, 15, 1005);
         rauniot.initializeRuins();
         rauniot.createRuins();
         rauniot.printRuins();
     }
-    */
+    
 }
