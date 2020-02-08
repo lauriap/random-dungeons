@@ -366,6 +366,7 @@ public class Ruins {
         rauniot.initializeRuins();
         rauniot.createRuins();
         rauniot.printRuins();
+        
     }
     
 }
