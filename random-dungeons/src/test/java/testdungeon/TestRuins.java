@@ -114,6 +114,39 @@ public class TestRuins {
     }
     
     /**
+     * Tests that method getWallLimit always returns the correct hand-calculated
+     * value.
+     */
+    @Test
+    public void testGetWallLimit() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        assertEquals(16, testRuins.getWallLimit());
+        
+        Ruins testRuins1 = new Ruins(10, 10, 55, 1005);
+        assertEquals(50, testRuins1.getWallLimit());
+        
+        Ruins testRuins2 = new Ruins(10, 10, 45, 1005);
+        assertEquals(25, testRuins2.getWallLimit());
+        
+        // test with random seed
+        Ruins testRuins3 = new Ruins(10, 10, 45, 0);
+        int a = testRuins3.getWallLimit();
+        assertEquals(a, testRuins3.getWallLimit());
+        
+    }
+    
+    /**
+     * Tests that the method testSetTile() sets the correct value.
+     */
+    @Test
+    public void testSetTile() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        testRuins.setTile(1, 2, 5);
+        int[][] ruinsArray = testRuins.getRuinsArray();
+        assertEquals(5, ruinsArray[1][2]);
+    }
+    
+    /**
      * Tests that getRandomStartPoint() correctly returns 
      * hand-calculated values for three coordinates. The expected value for 
      * coordinate x is the nth value in the Random(10) nextInt sequence and
@@ -135,6 +168,13 @@ public class TestRuins {
         int[] b = new int[]{7, 5};
         assertEquals(b[0], testRuins.getRandomStartPoint()[0]);
         assertEquals(b[1], testRuins.getRandomStartPoint()[1]);
+        
+        // test that the method gets new coordinates if the starting point 
+        // is not an empty space ( = goes inside the while() loop)
+        Ruins testRuins2 = new Ruins(100, 100, 50, 1005);
+        testRuins2.initializeRuins();
+        testRuins2.createRuins();
+        testRuins2.getRandomStartPoint();
     }
 
     /**
@@ -190,6 +230,27 @@ public class TestRuins {
     }
     
     
+    /**
+     * Tests that a space is not placed on a wall (= 1), border space (= 2) or
+     * house space (= 3)
+     */
+    @Test
+    public void testPlaceSpace() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        testRuins.initializeRuins();
+        // set (5, 5) to a wall (= 1). Check that placeSpace does not change it
+        // same for (5, 6), should be 3
+        // and (5, 7), should be 2
+        testRuins.placeWall(5, 5);
+        testRuins.placeHouseSpace(5, 6);
+        testRuins.placeSpace(5, 7);
+        int[][] ruinsArray = testRuins.getRuinsArray();
+        assertEquals(1, ruinsArray[5][5]);
+        assertEquals(3, ruinsArray[5][6]);
+        assertEquals(2, ruinsArray[5][7]);
+        
+    }
+    
     
     /**
      * Test to check that the hand-calculated array matches the ruins map array.
@@ -244,8 +305,26 @@ public class TestRuins {
                 assertEquals(testArray[i][j], ruinsArray[i][j]);
             }
         }
-        
-        
     }
     
+    /**
+     * Tests that the returned Ruins map is exactly the same as the
+     * map calculated by hand.
+     */
+    @Test
+    public void testReturnRuinsMap() {
+        Ruins testRuins = new Ruins(10, 10, 15, 1005);
+        testRuins.initializeRuins();
+        //tests that all values are set to 0 if not in range 0-4
+        testRuins.setTile(2, 2, 99); 
+        testRuins.createRuins();
+        
+        String s = testRuins.returnRuinsMap();
+        String t = "<html><body>##########<br>#........#<br>#........#<br>#........#<br>#........#<br>#........#<br>#........#<br>#........#<br>#........#<br>##########<br></body></html>";
+        for (int i = 0; i < s.length(); i++){
+            char a = s.charAt(i);
+            char b = s.charAt(i);
+            assertEquals(a, b);
+        }
+    }
 }

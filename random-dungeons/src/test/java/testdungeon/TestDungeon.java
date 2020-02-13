@@ -35,7 +35,18 @@ import org.junit.Test;
  * @author lauri
  */
 public class TestDungeon {
-
+    
+    /**
+     * Tests that the setTile() method correctly sets the tile value.
+     */
+    @Test
+    public void setTile() {
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.setTile(2, 2, 5);
+        int[][] dungeonArray = testDungeon.getDungeonArray();
+        assertEquals(5, dungeonArray[2][2]);
+    }
+    
     /**
      * Tests that the dungeon is initialized correctly with seed 1337. Comparison is made against hand-calculated values
      *      *** AFTER initializeDungeon() ***
@@ -73,6 +84,42 @@ public class TestDungeon {
                 assertEquals(testArray[i][j], dungeonArray[i][j]);
             }
         }
+    }
+    
+    /**
+     * Tests that dungeonWidth is returned correctly.
+     */
+    @Test
+    public void testDungeonWidth() {
+        Dungeon testDungeon = new Dungeon(50, 50, 45, 1337);
+        int a = testDungeon.getDungeonWidth();
+        assertEquals(50, a);
+        
+        // with seed = 0
+        Dungeon randomTestDungeon = new Dungeon(50, 50, 45, 0);
+        int b = randomTestDungeon.getDungeonWidth();
+        assertEquals(50, b);
+        
+    }
+    
+    /**
+     * Tests that dungeonHeight is returned correctly.
+     */
+    @Test
+    public void testDungeonHeight() {
+        Dungeon testDungeon = new Dungeon(50, 50, 45, 1337);
+        int a = testDungeon.getDungeonHeight();
+        assertEquals(50, a);
+    }
+    
+    /**
+     * Tests that wallProbability is returned correctly.
+     */
+    @Test
+    public void testgetWallProbability() {
+        Dungeon testDungeon = new Dungeon(50, 50, 45, 1337);
+        int a = testDungeon.getWallProbability();
+        assertEquals(45, a);
     }
     
     /**
@@ -211,12 +258,34 @@ public class TestDungeon {
     }
     
     /**
-     * This test will be added later as the final version will not contain a command line print but a UI.
+     * Tests that PlaceWall works correctly.
      */
     @Test
-    public void testPrintDungeon() {
-        assertEquals(true, true);
+    public void testPlaceWall() {
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.setTile(2, 3, 1);
+        
+        int a = testDungeon.placeWall(2, 3);
+        assertEquals(0, a);
     }
     
-    
+    /**
+     * Tests that the returned Dungeon map is exactly the same as the
+     * map calculated by hand.
+     */
+    @Test
+    public void testReturnDungeonMap() {
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.initializeDungeon();
+        testDungeon.makeDungeon();
+        
+        String s = testDungeon.returnDungeonMap();
+        String t = "<html><body>#####<br>#####<br>#..##"
+                + "<br>#####<br>#####<br></body></html>";
+        for (int i = 0; i < s.length(); i++){
+            char a = s.charAt(i);
+            char b = s.charAt(i);
+            assertEquals(a, b);
+        }
+    }
 }

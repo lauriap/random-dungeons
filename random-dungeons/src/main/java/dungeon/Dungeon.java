@@ -70,6 +70,17 @@ public class Dungeon {
     }
     
     /**
+     * Method for setting a map tile to a desired integer value.
+     * Used only for testing.
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param value tile value
+     */
+    public void setTile(int x, int y, int value) {
+        this.dungeon[x][y] = value;
+    }
+    
+    /**
      * Places wall blocks at random locations to a dungeon matrix (map) as
      * the first step towards creating a random dungeon.
      */
@@ -233,8 +244,10 @@ public class Dungeon {
     }
  
     /**
-     * This method is used solely for testing. Prints the dungeon layout to the command line.
+     * This method is used solely for testing. 
+     * Prints the dungeon layout to the command line.
      */
+    /*
     public void printDungeon() {
         char w = '#';
         char p = '.';
@@ -254,6 +267,7 @@ public class Dungeon {
         }
         System.out.println(s);
     }
+    */
     
     /**
      * Returns the finished random dungeon in String format (HTML).

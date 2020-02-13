@@ -1,6 +1,7 @@
 
 package ruins;
 
+import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -76,6 +77,24 @@ public class Ruins {
      */
     public int getRuinsHeight() {
         return this.ruinsHeight;
+    }
+    
+    /**
+     * Getter for wallLimit.
+     * @return int value for Ruins wallLimit.
+     */
+    public int getWallLimit() {
+        return this.wallLimit;
+    }
+    
+    /**
+     * Set a map tile to the desired int value.
+     * @param x x coordinate
+     * @param y coordinate
+     * @param value tile value
+     */
+    public void setTile(int x, int y, int value) {
+        this.ruins[x][y] = value;
     }
     
     /**
@@ -209,7 +228,7 @@ public class Ruins {
     }
     
     /**
-     * Places a free space on a around a house if fits.
+     * Places a free space around a house if it fits.
      * Rules:
      * Tiles next to walls or borders are always free spaces. Controlled with method isOutOfBounds.
      * Otherwise place a free space.
@@ -291,8 +310,11 @@ public class Ruins {
     }
     
     /**
-     * This method is used solely for testing. Prints the ruins layout to the command line.
+     * This method is used solely for testing. Prints the ruins 
+     * layout to the command line.
+     * ONLY FOR TESTING!
      */
+    /*
     public void printRuins() {
         char w = '#';
         char p = '.';
@@ -321,6 +343,7 @@ public class Ruins {
         }
         System.out.println(s);
     }
+    */
     
     /**
      * Returns the finished random ruins-type dungeon in String format (HTML).
@@ -359,6 +382,7 @@ public class Ruins {
     }
     
     
+    /*
     // main is only for testing purposes
     
     public static void main(String[] args) {
@@ -368,9 +392,9 @@ public class Ruins {
             rauniot.createHole(2, 2, 5, 5);
         }
         
-        //rauniot.createRuins();
-        rauniot.printRuins();
+        rauniot.createRuins();
+        //rauniot.printRuins();
         System.out.println();
     }
-    
+    */
 }
