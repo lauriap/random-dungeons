@@ -29,6 +29,9 @@ la 8.2.2020
 * 1.5h Checkstyle-korjausten teko
 * 6.5h TestRuins-testiluokan kirjoittamista
 
+to 13.2.2020
+* 3h Testikattavuuden parantamista
+
 
 
 

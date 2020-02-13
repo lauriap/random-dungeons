@@ -6,7 +6,6 @@ The generator also has a simple GUI. The program has been coded using java on a 
 
 **KNOWN ISSUES**
 
-* Unit testing for Ruins and Dungeon classes not fully completed yet. Will be finished during week 5. Pretty good coverage for Dungeon, Ruins still needs a fair bit of work.
 * Cavern-type dungeon also forms caverns with inaccessible places. Will be fixed during week 5.
 * GUI window showing the generated dungeon is missing a scroll bar. Will be added during week 5.
 * Random class not implemented with a self-made data structure yet
