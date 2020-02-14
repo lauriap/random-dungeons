@@ -6,9 +6,9 @@ The generator also has a simple GUI. The program has been coded using java on a 
 
 **KNOWN ISSUES**
 
-* Cavern-type dungeon also forms caverns with inaccessible places. Will be fixed during week 5.
-* GUI window showing the generated dungeon is missing a scroll bar. Will be added during week 5.
-* Random class not implemented with a self-made data structure yet
+* Cavern-type dungeon also forms caverns with inaccessible places. Will be fixed during week 6.
+* GUI window showing the generated dungeon is missing a scroll bar. Will be added during week 6.
+* Random class not implemented with a self-made data structure yet. Will be added during week 6.
 * Still considering whether to allow rectangular maps instead of squares.
 
 
@@ -21,6 +21,8 @@ The generator also has a simple GUI. The program has been coded using java on a 
 [Weekly Report 3](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_3.md)
 
 [Weekly Report 4](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_4.md)
+
+[Weekly Report 5](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_5.md)
 
 
 
