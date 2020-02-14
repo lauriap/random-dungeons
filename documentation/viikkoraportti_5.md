@@ -37,6 +37,6 @@ pe 14.2.2020
 * 1h Viikkoraportti, jäljellä olevien ongelmien ratkaisumahdollisuuksien kartoitus ja dokumentoinnin päivitys
 
 
-**VIIKKO YHT. 13 h** EI VIELÄ LASKETTU MUKAAN ALLE
+**VIIKKO YHT. 13 h**
 
 **KOKO PROJEKTI YHT. 59 h**
