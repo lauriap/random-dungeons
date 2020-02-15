@@ -188,6 +188,7 @@ public class DungeonGUI extends JFrame implements ActionListener {
                     Dungeon dng = new Dungeon(size, size, density, seed);
                     dng.initializeDungeon();
                     dng.makeDungeon();
+                    dng.makeFloodedMap();
                     //dng.printDungeon(); ONLY FOR TESTING
                     dungeonPane.setText(dng.returnDungeonMap());
                     

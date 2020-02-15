@@ -10,6 +10,8 @@ public class Dungeon {
     
     Random rand;
     int[][] dungeon;
+    int[][] fillmap;
+    int[][] visited;
     int dungeonWidth;
     int dungeonHeight;
     int wallProbability;
@@ -26,6 +28,7 @@ public class Dungeon {
         this.dungeonHeight = n;
         this.dungeonWidth = m;
         this.wallProbability = p;
+        this.visited = new int[this.dungeonHeight][this.dungeonWidth];
         this.dungeon = new int[this.dungeonHeight][this.dungeonWidth];
         
         if (seed != 0) { //seed is 0 for normal use, above 0 for testing.
@@ -33,6 +36,14 @@ public class Dungeon {
         
         } else {
             this.rand = new Random();
+        }
+        
+        // set all tiles in fillmap to 1.
+        this.fillmap = new int[this.dungeonHeight][this.dungeonWidth];
+        for (int i = 0; i < this.dungeonHeight; i++) {
+            for (int j = 0; j < this.dungeonWidth; j++) {
+                this.fillmap[i][j] = 1;
+            }
         }
         
     }
@@ -242,7 +253,107 @@ public class Dungeon {
         
         return false;
     }
- 
+    
+    /**
+     * Returns the coordinates of a free tile in the middle of the map for
+     * initiating flood fill. Flood fill is used to remove isolated cave spaces.
+     * @return coordinates (x, y) in array format.
+     */
+    public int[] getFillStartPoint() {
+        int height = this.getDungeonHeight();
+        int width = this.getDungeonWidth();
+        int[][] dungeonArray = this.getDungeonArray();
+        
+        int x = this.getDungeonHeight() / 2;
+        int y = this.getDungeonWidth() / 2;
+        
+        // checks rows downwars from the middle of the map
+        for (int i = x; i < height; i++) {
+            if (dungeonArray[i][y] == 0) {
+                return new int[]{i, y};
+            }
+        }
+        
+        // checks rows upwards
+        for (int i = x; i > 0; i--) {
+            if (dungeonArray[i][y] == 0) {
+                return new int[]{i, y};
+            }
+        }
+        
+        // checks columns to the left
+        for (int i = y; i > 0; i--) {
+            if (dungeonArray[x][i] == 0) {
+                return new int[]{x, i};
+            }
+        }
+        
+        // checks columns to the right
+        for (int i = y; i < width; i++) {
+            if (dungeonArray[x][i] == 0) {
+                return new int[]{x, i};
+            }
+        }
+        
+        // if no tiles free are found, 
+        // checks all tiles from the beginning of the map
+        for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+                if (dungeonArray[i][j] == 0) {
+                    return new int[]{i, j};
+                }
+            }
+        }
+        return new int[]{x, y};
+    }
+    
+    /**
+     * Flood fill method to turn fillmap into a dungeon array with only
+     * one open space.
+     * @param x x coordinate
+     * @param y y coordinate
+     */
+    public void floodFill(int x, int y) {
+        
+        // return if out of bounds
+        if (this.isOutOfBounds(x, y)) {
+            return;
+        }
+        
+        if (this.visited[x][y] != 1) {
+            
+            this.visited[x][y] = 1;
+            
+            // return if the tile is a wall
+            if (this.dungeon[x][y] == 1) {
+                return;
+            // if the tile is free, mark it as free into the fillmap
+            } else if (this.dungeon[x][y] == 0) {
+                this.fillmap[x][y] = 0;
+            }
+            
+            // recursively check all neighbouring tiles
+            this.floodFill(x-1, y-1);
+            this.floodFill(x-1, y);
+            this.floodFill(x-1, y+1);
+            this.floodFill(x, y-1);
+            this.floodFill(x, y+1);
+            this.floodFill(x+1, y-1);
+            this.floodFill(x+1, y);
+            this.floodFill(x+1, y+1);
+        }
+    }
+    
+    /**
+     * Creates a dungeon map that has no unexplorable pockets but a single
+     * explorable space using flood fill. This is the map version which
+     * will be showed to the user.
+     */
+    public void makeFloodedMap() {
+        int[] coordinates = this.getFillStartPoint();
+        this.floodFill(coordinates[0], coordinates[1]);
+    }
+    
     /**
      * This method is used solely for testing. 
      * Prints the dungeon layout to the command line.
@@ -254,7 +365,7 @@ public class Dungeon {
         String s = "";
         for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
             for (column = 0; column <= this.dungeonHeight - 1; column++) {
-                if (this.dungeon[row][column] == 1) {
+                if (this.fillmap[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
                 } else {
@@ -273,6 +384,7 @@ public class Dungeon {
      * Returns the finished random dungeon in String format (HTML).
      * @return String dungeon with line breaks.
      */
+    /*
     public String returnDungeonMap() {
         char w = '#';
         char p = '.';
@@ -281,6 +393,34 @@ public class Dungeon {
         for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
             for (column = 0; column <= this.dungeonHeight - 1; column++) {
                 if (this.dungeon[row][column] == 1) {
+                    String otherString = s + '#';
+                    s = otherString;
+                } else {
+                    String otherString = s + '.';
+                    s = otherString;
+                }
+            }
+            String endOfRowString = s + "<br>";
+            s = endOfRowString;
+        }
+        String otherS = s + "</body></html>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
+        s = otherS;
+        return s;
+    }
+    */
+    
+    /**
+     * Returns the finished random dungeon in String format (HTML).
+     * @return String dungeon with line breaks.
+     */
+    public String returnDungeonMap() {
+        char w = '#';
+        char p = '.';
+        
+        String s = "<html><body>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
+        for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
+            for (column = 0; column <= this.dungeonHeight - 1; column++) {
+                if (this.fillmap[row][column] == 1) {
                     String otherString = s + '#';
                     s = otherString;
                 } else {
@@ -307,6 +447,7 @@ public class Dungeon {
         System.out.println();
         
         luola.makeDungeon();
+        luola.makeFloodedMap();
         System.out.println("After creation:");
         luola.printDungeon();
         
