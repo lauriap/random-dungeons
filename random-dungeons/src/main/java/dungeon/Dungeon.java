@@ -1,6 +1,6 @@
 package dungeon;
 
-import java.util.Random;
+import randomnumgen.RandomNumGen;
 
 /**
  * Contains the methods for creating and generating a random dungeon.
@@ -8,7 +8,7 @@ import java.util.Random;
  */
 public class Dungeon {
     
-    Random rand;
+    RandomNumGen rand;
     int[][] dungeon;
     int[][] fillmap;
     int[][] visited;
@@ -32,10 +32,10 @@ public class Dungeon {
         this.dungeon = new int[this.dungeonHeight][this.dungeonWidth];
         
         if (seed != 0) { //seed is 0 for normal use, above 0 for testing.
-            this.rand = new Random(seed);
+            this.rand = new RandomNumGen(seed);
         
         } else {
-            this.rand = new Random();
+            this.rand = new RandomNumGen();
         }
         
         // set all tiles in fillmap to 1.
@@ -377,35 +377,6 @@ public class Dungeon {
             s = endOfRowString;
         }
         System.out.println(s);
-    }
-    */
-    
-    /**
-     * Returns the finished random dungeon in String format (HTML).
-     * @return String dungeon with line breaks.
-     */
-    /*
-    public String returnDungeonMap() {
-        char w = '#';
-        char p = '.';
-        
-        String s = "<html><body>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
-        for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
-            for (column = 0; column <= this.dungeonHeight - 1; column++) {
-                if (this.dungeon[row][column] == 1) {
-                    String otherString = s + '#';
-                    s = otherString;
-                } else {
-                    String otherString = s + '.';
-                    s = otherString;
-                }
-            }
-            String endOfRowString = s + "<br>";
-            s = endOfRowString;
-        }
-        String otherS = s + "</body></html>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
-        s = otherS;
-        return s;
     }
     */
     

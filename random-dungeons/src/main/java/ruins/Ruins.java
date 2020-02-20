@@ -2,7 +2,7 @@
 package ruins;
 
 import java.util.Arrays;
-import java.util.Random;
+import randomnumgen.RandomNumGen;
 
 /**
  * This class creates a random ruins-type map with rectangular, broken structures.
@@ -16,13 +16,12 @@ import java.util.Random;
  */
 public class Ruins {
     
-    Random rand;
+    RandomNumGen rand;
     int[][] ruins;
     int ruinsWidth;
     int ruinsHeight;
     int wallLimit;
     int wallCount = 0;
-    
     
     /**
      * Constructor for a new Ruins.
@@ -49,9 +48,9 @@ public class Ruins {
         this.ruins = new int[this.ruinsHeight][this.ruinsWidth];
         
         if (seed != 0) { //seed is 0 for normal use, above 0 for testing.
-            this.rand = new Random(seed);
+            this.rand = new RandomNumGen(seed);
         } else {
-            this.rand = new Random();
+            this.rand = new RandomNumGen();
         }
     }
     
