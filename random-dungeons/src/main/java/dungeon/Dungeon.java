@@ -57,6 +57,14 @@ public class Dungeon {
     }
     
     /**
+     * Returns the fill map as a two-dimensional int array.
+     * @return two-dimensional fill map array, 1 = wall, 0 = space
+     */
+    public int[][] getFillMapArray() {
+        return this.fillmap;
+    }
+    
+    /**
      * Getter for dungeonWidth.
      * @return int value for dungeon width (10-1000).
      */
@@ -388,7 +396,7 @@ public class Dungeon {
         char w = '#';
         char p = '.';
         
-        String s = "<html><body>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
+        String s = "";
         for (int column = 0, row = 0; row <= this.dungeonHeight - 1; row++) {
             for (column = 0; column <= this.dungeonHeight - 1; column++) {
                 if (this.fillmap[row][column] == 1) {
@@ -402,8 +410,6 @@ public class Dungeon {
             String endOfRowString = s + "<br>";
             s = endOfRowString;
         }
-        String otherS = s + "</body></html>"; // ADDED BUT DIDN'T SOLVE PROBLEM WITH LINE-HEIGHT
-        s = otherS;
         return s;
     }
     

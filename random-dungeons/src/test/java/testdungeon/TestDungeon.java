@@ -270,6 +270,91 @@ public class TestDungeon {
     }
     
     /**
+     * Tests that getFillStartPoint() always returns the correct start point.
+     */
+    @Test
+    public void testGetFillStartPoint() {
+        
+        // create a dungeon where only (0, 0) has value 0, others 1.
+        // the resulting start point should thus be (0, 0).
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.initializeDungeon();
+        testDungeon.makeDungeon();
+        testDungeon.setTile(0, 0, 0);
+        testDungeon.setTile(2, 1, 1);
+        testDungeon.setTile(2, 2, 1);
+        int[] coords = testDungeon.getFillStartPoint();
+        assertEquals(0, coords[0]);
+        assertEquals(0, coords[1]);
+        
+        // check that if tile below midpoint is a space, it becomes a starting
+        // point
+        testDungeon.setTile(3, 2, 0);
+        int[] coords2 = testDungeon.getFillStartPoint();
+        assertEquals(3, coords2[0]);
+        assertEquals(2, coords2[1]);
+        testDungeon.setTile(3, 2, 1);
+        
+        // same for tiles above midpoint
+        testDungeon.setTile(1, 2, 0);
+        int[] coords3 = testDungeon.getFillStartPoint();
+        assertEquals(1, coords3[0]);
+        assertEquals(2, coords3[1]);
+        testDungeon.setTile(1, 2, 1);
+        
+        // and to the left
+        testDungeon.setTile(2, 1, 0);
+        int[] coords4 = testDungeon.getFillStartPoint();
+        assertEquals(2, coords4[0]);
+        assertEquals(1, coords4[1]);
+        testDungeon.setTile(2, 1, 1);
+        
+        // and to the right
+        testDungeon.setTile(2, 3, 0);
+        int[] coords5 = testDungeon.getFillStartPoint();
+        assertEquals(2, coords5[0]);
+        assertEquals(3, coords5[1]);
+        
+    }
+    
+    /**
+     * Test to see that FloodFill works properly.
+     */
+    @Test
+    public void testFloodFill() {
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.initializeDungeon();
+        testDungeon.floodFill(1, 1);
+        int dungeonArray[][] = testDungeon.getDungeonArray();
+        int fillMapArray[][] = testDungeon.getFillMapArray();
+        
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+                assertEquals(dungeonArray[i][j], fillMapArray[i][j]);
+            }
+        }
+        
+    }
+    
+    /**
+     * Checks that makeFloodedMap() can be called correctly.
+     */
+    @Test public void testMakeFloodedMap() {
+        Dungeon testDungeon = new Dungeon(5, 5, 15, 1337);
+        testDungeon.initializeDungeon();
+        testDungeon.makeDungeon();
+        testDungeon.makeFloodedMap();
+        testDungeon.setTile(2, 1, 1);
+        testDungeon.setTile(2, 2, 1);
+        int[][] dungeonArray = testDungeon.getDungeonArray();
+        for(int i = 0; i < 4; i++) {
+            for(int j = 0; j < 4; j++) {
+                assertEquals(1, dungeonArray[i][j]);
+            }
+        }
+    }
+    
+    /**
      * Tests that the returned Dungeon map is exactly the same as the
      * map calculated by hand.
      */
@@ -280,8 +365,8 @@ public class TestDungeon {
         testDungeon.makeDungeon();
         
         String s = testDungeon.returnDungeonMap();
-        String t = "<html><body>#####<br>#####<br>#..##"
-                + "<br>#####<br>#####<br></body></html>";
+        String t = "#####<br>#####<br>#..##"
+                + "<br>#####<br>#####<br>";
         for (int i = 0; i < s.length(); i++){
             char a = s.charAt(i);
             char b = s.charAt(i);

@@ -352,7 +352,7 @@ public class Ruins {
         char w = '#';
         char p = '.';
         
-        String s = "<html><body>";
+        String s = "";
         for (int column = 0, row = 0; row <= this.ruinsHeight - 1; row++) {
             for (column = 0; column <= this.ruinsHeight - 1; column++) {
                 if (this.ruins[row][column] == 1) {
@@ -375,8 +375,6 @@ public class Ruins {
             String endOfRowString = s + "<br>";
             s = endOfRowString;
         }
-        String otherS = s + "</body></html>";
-        s = otherS;
         return s;
     }
     

@@ -2,6 +2,8 @@
 package gui;
 
 import dungeon.Dungeon;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -68,9 +70,9 @@ public class DungeonGUI extends JFrame implements ActionListener {
 
         getContentPane().add(dungeonSizeLabel);
         getContentPane().add(sizeList);
-        
-        
-        
+
+
+
         
         // create wall density label + drop down
         JLabel wallDensityLabel = new JLabel("Wall density");
@@ -147,7 +149,7 @@ public class DungeonGUI extends JFrame implements ActionListener {
                 
                 // create a new editor frame for the print output
                 JEditorPane dungeonPane = new JEditorPane();
-                dungeonPane.setContentType("text/html"); //HTML OR PLAIN?
+                dungeonPane.setContentType("text/html");
                 dungeonPane.setEditable(false);
                 dungeonPane.setBounds(0, 0, 1500, 850);
                 
@@ -155,17 +157,14 @@ public class DungeonGUI extends JFrame implements ActionListener {
                 // in order to change line spacing and font
                 HTMLEditorKit kit = new HTMLEditorKit();
                 dungeonPane.setEditorKit(kit);
-                JScrollPane scrollPane = new JScrollPane(dungeonPane);
                 
                 StyleSheet styleSheet = kit.getStyleSheet();
-                // THIS NEEDS TO BE FIXED! LINE-HEIGHT NOT WORKING! 
-                styleSheet.addRule("body { font: 8px courier, sans-serif; "
-                        + "line-height: 0.7;}"); 
-               
-                //styleSheet.addRule("body { line-height:80%; }");
                 
-                Document doc = kit.createDefaultDocument();
-                dungeonPane.setDocument(doc);
+                styleSheet.addRule("body { font: 8px courier, sans-serif; "
+                        + "line-height: 80%; text-align: center;}"); 
+
+                Document docu = kit.createDefaultDocument();
+                dungeonPane.setDocument(docu);
                 
                 // add editor pane to print frame
                 printFrame.getContentPane().add(dungeonPane);
