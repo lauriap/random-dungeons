@@ -6,8 +6,7 @@ The generator also has a simple GUI. The program has been coded using java on a 
 
 **KNOWN ISSUES**
 
-* GUI window showing the generated dungeon is missing a scroll bar.
-* Random class implemented but missing unit tests.
+* A self-made Random class implemented but missing unit tests.
 * Documentation assessing map "goodness" missing
 
 
