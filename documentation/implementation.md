@@ -53,13 +53,13 @@ Cavern
 * Medium density
 * Any map size
 
-## Suggestions for further development
+# Suggestions for further development
 
 * The Ruins map could become more interesting if more varied shapes were introduced (e.g. cross-shaped structures, circles etc.)
 * Still considering whether to allow rectangular maps instead of squares.
 * A prettier UI based on something else than Swing as it limits the possibilities somewhat
 
-## Sources
+# Sources
 
 RogueBasin: [_Cellular Automata Method for Generating Random Cave-Like Levels_](http://www.roguebasin.com/index.php?title=Cellular_Automata_Method_for_Generating_Random_Cave-Like_Levels), visited 18.1.2020.
 
