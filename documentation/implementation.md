@@ -22,20 +22,20 @@ This is the graphical user interface class of the program. DungeonGUI enables th
 
 Test classes have been created for all the main classes. Please see the testing document for more information.
 
-## Time and space complexity
+# Time and space complexity
 
 Consider a 100x100 dungeon matrix, i.e. a two-dimensional array t[100][100]. Both algorithms will have to go through each element of the array, resulting in a time complexity of O(nm) where n is the number of rows and m the number of columns. 
 
 The space complexity of the algorithms is O(nm).
 
-## Assessment of map "goodness"
+# Assessment of map "goodness"
 
 To assess the "goodness", i.e. how good a map looks, how "interesting it is", I ran the random dungeon generator 100 times for both Cavern and Ruins type dungeon. The distribution of settings for both types was the following:
 * 33 rounds with low, 33 with medium and 34 with high density
 * For each set of 33/34 runs based on density, I did 11 runs with small, 11 runs with medium and 11 runs with large map size
 * The reason for this choice was that I felt that density was the key factor in affecting how interesting the map turned out to be
 
-### Key takeaways from map "goodness" testing
+## Key takeaways from map "goodness" testing
 
 In general, the maps turned out how I was expecting them to turn out. However, there were some things that stood out during performance testing:
 * Low density maps tended to have a lot of open space and especially with Cavern-type dungeons that center area of the map turned out to be relatively empty irrespective of map size
