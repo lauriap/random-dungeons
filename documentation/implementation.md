@@ -45,11 +45,11 @@ In general, the maps turned out how I was expecting them to turn out. However, t
 
 Overall, the "best" outcomes were given by the following settings:
 
-Ruins
+**Ruins**
 * High density
 * Medium or large map size
 
-Cavern
+**Cavern**
 * Medium density
 * Any map size
 
@@ -57,7 +57,7 @@ Cavern
 
 * The Ruins map could become more interesting if more varied shapes were introduced (e.g. cross-shaped structures, circles etc.)
 * Still considering whether to allow rectangular maps instead of squares.
-* A prettier UI based on something else than Swing as it limits the possibilities somewhat
+* A prettier UI based on something else than Swing as it limits the possibilities somewhat (e.g. line-height not supported in Swing HTML/CSS)
 
 # Sources
 
