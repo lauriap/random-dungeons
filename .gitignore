@@ -23,3 +23,5 @@ gradle-app.setting
 bin/
 .settings/
 
+/JScrollPaneExample/nbproject/private/
+/JScrollPaneExample/build/

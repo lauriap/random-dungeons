@@ -3,14 +3,21 @@ package gui;
 
 import dungeon.Dungeon;
 import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JSpinner;
+import javax.swing.JTextPane;
+import javax.swing.SpinnerNumberModel;
 
-import javax.swing.*;
-import javax.swing.text.Document;
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 import ruins.Ruins;
 
 /**
@@ -145,42 +152,36 @@ public class DungeonGUI extends JFrame implements ActionListener {
                 // create new frame (window) for the dungeon
                 JFrame printFrame = new JFrame();
                 printFrame.setTitle("Random dungeon");
-                printFrame.setSize(1500, 1000);
+                printFrame.setSize(1500, 1000); 
                 
-                // create a new editor frame for the print output
-                JEditorPane dungeonPane = new JEditorPane();
-                dungeonPane.setContentType("text/html");
+                // create a text pane on which to display the dungeon map
+                JTextPane dungeonPane = new JTextPane();
+                
+                // apply text centering to the map pane
+                StyledDocument doc = dungeonPane.getStyledDocument();
+                SimpleAttributeSet center = new SimpleAttributeSet();
+                StyleConstants.setAlignment(center, 
+                        StyleConstants.ALIGN_CENTER);
+                doc.setParagraphAttributes(0, doc.getLength(), center, false);
+   
+                // create a scrollable pane that contains dungeonArea
+                JScrollPane scrollableDungeonPane = 
+                        new JScrollPane(dungeonPane);
+                
+                // set vertical scroll bar to always be visible
+                scrollableDungeonPane.setVerticalScrollBarPolicy
+                    (JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+                
+                
+                
+                // set the text style and disable editing
+                dungeonPane.setFont(new Font("monospaced", Font.PLAIN, 8));
                 dungeonPane.setEditable(false);
-                dungeonPane.setBounds(0, 0, 1500, 850);
+                dungeonPane.setContentType("text/plain");
                 
-                // create CSS style sheet for dungeonPane 
-                // in order to change line spacing and font
-                HTMLEditorKit kit = new HTMLEditorKit();
-                dungeonPane.setEditorKit(kit);
-                
-                StyleSheet styleSheet = kit.getStyleSheet();
-                
-                styleSheet.addRule("body { font: 8px courier, sans-serif; "
-                        + "line-height: 80%; text-align: center;}"); 
-
-                Document docu = kit.createDefaultDocument();
-                dungeonPane.setDocument(docu);
-                
-                // add editor pane to print frame
-                printFrame.getContentPane().add(dungeonPane);
-                
-                // add a close button to the window
-                JButton closeButton = new JButton("Close");
-                closeButton.setBounds(750, 900, buttonWidth, buttonHeight);
-                printFrame.getContentPane().add(closeButton);
-                
-                // close button functionality
-                closeButton.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent event) {
-                        printFrame.setVisible(false);
-                    }
-                });
+                // add scrollable pane pane to print frame
+                printFrame.getContentPane().add(scrollableDungeonPane, 
+                        BorderLayout.CENTER);
                 
                 // generate dungeon based on selected dungeon type
                 if (type == 0) {
@@ -199,10 +200,8 @@ public class DungeonGUI extends JFrame implements ActionListener {
                     dungeonPane.setText(rns.returnRuinsMap());
                 }
                 
-                printFrame.getContentPane().setLayout(null);
                 printFrame.setLocationRelativeTo(null);
                 printFrame.setVisible(true);
-                
             }
         });
         

@@ -407,7 +407,7 @@ public class Dungeon {
                     s = otherString;
                 }
             }
-            String endOfRowString = s + "<br>";
+            String endOfRowString = s + "\n";
             s = endOfRowString;
         }
         return s;
