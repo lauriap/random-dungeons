@@ -12,6 +12,8 @@ plugins {
     id 'checkstyle'
 }
 
+version = '1.0'
+
 checkstyle {
     toolVersion '8.17'
     configFile file("config/checkstyle/checkstyle.xml")
@@ -42,6 +44,12 @@ dependencies {
 
 // Define the main class for the application
 mainClassName = 'gui.DungeonGUI'
+
+jar {
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
 
 jacocoTestReport {
     reports {
