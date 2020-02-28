@@ -1,7 +1,6 @@
 
 package ruins;
 
-import java.util.Arrays;
 import randomnumgen.RandomNumGen;
 
 /**
