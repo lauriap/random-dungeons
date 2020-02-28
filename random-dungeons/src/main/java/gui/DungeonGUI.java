@@ -168,8 +168,8 @@ public class DungeonGUI extends JFrame implements ActionListener {
                         new JScrollPane(dungeonPane);
                 
                 // set vertical scroll bar to always be visible
-                scrollableDungeonPane.setVerticalScrollBarPolicy
-                    (JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
+                scrollableDungeonPane.setVerticalScrollBarPolicy(
+                        JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);  
                 
                 
                 

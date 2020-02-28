@@ -4,11 +4,6 @@ This Random Dungeon Generator is made as part of a data structures and algorithm
 
 The generator also has a simple GUI. The program has been coded using java on a gradle build. Please refer to documentation for more details.
 
-**KNOWN ISSUES**
-
-* A self-made Random class implemented but missing unit tests.
-* Documentation assessing map "goodness" missing
-
 
 ## Weekly Reports (in Finnish)
 

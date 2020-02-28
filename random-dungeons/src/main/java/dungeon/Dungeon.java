@@ -341,14 +341,14 @@ public class Dungeon {
             }
             
             // recursively check all neighbouring tiles
-            this.floodFill(x-1, y-1);
-            this.floodFill(x-1, y);
-            this.floodFill(x-1, y+1);
-            this.floodFill(x, y-1);
-            this.floodFill(x, y+1);
-            this.floodFill(x+1, y-1);
-            this.floodFill(x+1, y);
-            this.floodFill(x+1, y+1);
+            this.floodFill(x - 1, y - 1);
+            this.floodFill(x - 1, y);
+            this.floodFill(x - 1, y + 1);
+            this.floodFill(x, y - 1);
+            this.floodFill(x, y + 1);
+            this.floodFill(x + 1, y - 1);
+            this.floodFill(x + 1, y);
+            this.floodFill(x + 1, y + 1);
         }
     }
     
@@ -416,6 +416,7 @@ public class Dungeon {
     // main used here for testing purposes.
     /*
     public static void main(String[] args) {
+        
         Dungeon luola = new Dungeon(50, 50,45, 1337);
         luola.initializeDungeon();
         System.out.println("After initialization:");
