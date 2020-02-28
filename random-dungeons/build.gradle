@@ -58,5 +58,8 @@ jacocoTestReport {
     }
 }
 
+run {
+    
+}
 
 check.dependsOn jacocoTestReport
