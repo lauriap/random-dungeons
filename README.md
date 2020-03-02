@@ -19,6 +19,7 @@ The generator also has a simple GUI. The program has been coded using java on a 
 
 [Weekly Report 6](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_6.md)
 
+[Weekly Report 7](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_7.md)
 
 
 		############################################################
