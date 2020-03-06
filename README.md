@@ -5,6 +5,20 @@ This Random Dungeon Generator is made as part of a data structures and algorithm
 The generator also has a simple GUI. The program has been coded using java on a gradle build. Please refer to documentation for more details.
 
 
+## Documentation
+
+[Specification](https://github.com/lauriap/random-dungeons/blob/master/documentation/specification.md)
+
+
+[Implementation](https://github.com/lauriap/random-dungeons/blob/master/documentation/implementation.md)
+
+
+[Testing](https://github.com/lauriap/random-dungeons/blob/master/documentation/testing.md)
+
+
+[User's guide](https://github.com/lauriap/random-dungeons/blob/master/documentation/users_guide.md)
+
+
 ## Weekly Reports (in Finnish)
 
 [Weekly Report 1](https://github.com/lauriap/random-dungeons/blob/master/documentation/viikkoraportti_1.md)

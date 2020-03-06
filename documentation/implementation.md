@@ -4,7 +4,7 @@
 
 This program has been written using Java and it was built using gradle. Checkstyle and jacoco were used for code style management and test coverage reports.
 
-The program consists of three classes: Dungeon.java, Ruins.java and DungeonGUI.java.
+The program consists of five classes: Dungeon.java, Ruins.java, DungeonGUI.java, RandomNumGen.java and SpeedTest.java.
 
 ## Dungeon.java
 
@@ -18,9 +18,17 @@ This class creates a random dungeon with a ruins-type setting. It creates house-
 
 This is the graphical user interface class of the program. DungeonGUI enables the user to select the kind of dungeon s/he wants to create using dungeon type, size, wall density and random seed as parameters. The user's choices have been limited to just a few (e.g. small/medium/large) to avoid confusion and to avoid input-based errors. 
 
+## RandomNumGen.java
+
+This is a random number generator data structure based on the Java's Random class.
+
+## SpeedTest.java
+
+This class is used solely for speed testing purposes. Speed test results can be seen in the testing document.
+
 ## Test classes
 
-Test classes have been created for all the main classes. Please see the testing document for more information.
+Test classes have been created for the dungeon classes. The dungeon classes also include testing of the random number generator. Please see the testing document for more information.
 
 ## Time and space complexity
 
